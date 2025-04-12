@@ -141,10 +141,10 @@ if (Sphinx_BUILD_EXECUTABLE)
         # For Sphinx >= 1.2.3
         if     (NOT "${_Sphinx_VERSION_OUTPUT}" STREQUAL "")
             # For Python 3, outputs will be dumped into stdout.
-            string(REGEX MATCH "[0-9]+\\.[0-9]+\\.[0-9]+" Sphinx_VERSION ${_Sphinx_VERSION_OUTPUT})
+            string(REGEX MATCH "([0-9]+)\\.([0-9]+)\\.([0-9]+)" Sphinx_VERSION ${_Sphinx_VERSION_ERROR})
         elseif (NOT "${_Sphinx_VERSION_ERROR}" STREQUAL "")
             # For Python 2, outputs will be dumped into stderr.
-            string(REGEX MATCH "[0-9]+\\.[0-9]+\\.[0-9]+" Sphinx_VERSION ${_Sphinx_VERSION_ERROR})
+            string(REGEX MATCH "([0-9]+)\\.([0-9]+)\\.([0-9]+)" Sphinx_VERSION ${_Sphinx_VERSION_ERROR})
         else ()
             message(FATAL_ERROR "Failed to find Sphinx_VERSION.")
         endif()
