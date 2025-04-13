@@ -63,7 +63,7 @@ find_program(Conda_EXECUTABLE
     NAMES ${_CONDA_NAME}
     HINTS ${_Conda_SEARCH_HINTS}
     PATHS ${_Conda_SEARCH_PATHS}
-    DOC "The full path to the conda executable.")
+    DOC "The full path to the 'conda' executable.")
 
 if (Conda_EXECUTABLE)
     execute_process(

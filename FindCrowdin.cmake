@@ -63,7 +63,7 @@ find_program(Crowdin_EXECUTABLE
     NAMES ${_CROWDIN_NAME}
     HINTS ${_Crowdin_SEARCH_HINTS}
     PATHS ${_Crowdin_SEARCH_PATHS}
-    DOC "The full path to the crowdin executable.")
+    DOC "The full path to the 'crowdin' executable.")
 
 if (WIN32)
     # It is required to set CROWDIN_HOME env on Windows platform.

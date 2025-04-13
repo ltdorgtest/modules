@@ -61,7 +61,7 @@ find_program(Doxygen_EXECUTABLE
     PATH_SUFFIXES ${_Doxygen_PATH_SUFFIXES}
     HINTS ${_Doxygen_SEARCH_HINTS}
     PATHS ${_Doxygen_SEARCH_PATHS}
-    DOC "The full path to the doxygen executable.")
+    DOC "The full path to the 'doxygen' executable.")
 if (Doxygen_EXECUTABLE)
     set(Doxygen_FOUND TRUE)
 endif()

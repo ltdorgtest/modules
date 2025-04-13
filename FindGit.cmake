@@ -56,7 +56,7 @@ find_program(Git_EXECUTABLE
     NAMES git
     HINTS ${_Git_SEARCH_HINTS}
     PATHS ${_Git_SEARCH_PATHS}
-    DOC "The full path to the git executable.")
+    DOC "The full path to the 'git' executable.")
 
 if (Git_EXECUTABLE)
     execute_process(

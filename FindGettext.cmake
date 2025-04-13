@@ -170,7 +170,7 @@ foreach(_COMP ${_Gettext_KNOWN_COMPONENTS})
         NAMES ${_TOOL}
         HINTS ${_Gettext_SEARCH_HINTS}
         PATHS ${_Gettext_SEARCH_PATHS}
-        DOC "The full path to the ${_TOOL} executable.")
+        DOC "The full path to the '${_TOOL}' executable.")
     if (Gettext_${_COMP_UPPER}_EXECUTABLE)
         set(Gettext_${_COMP}_FOUND TRUE)
     else()
