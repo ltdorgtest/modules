@@ -629,15 +629,9 @@ function(get_members_of_json_object)
     # Return the content of ${MEMBER_VALUES} to OUT_MEMBER_VALUES (if exists).
     # Return the content of ${MEMBER_LENGTH} to OUT_MEMBER_LENGTH (if exists).
     #
-    if (GMOJO_OUT_MEMBER_NAMES)
-        set(${GMOJO_OUT_MEMBER_NAMES} "${MEMBER_NAMES}" PARENT_SCOPE)
-    endif()
-    if (GMOJO_OUT_MEMBER_VALUES)
-        set(${GMOJO_OUT_MEMBER_VALUES} "${MEMBER_VALUES}" PARENT_SCOPE)
-    endif()
-    if (GMOJO_OUT_MEMBER_NUMBER)
-        set(${GMOJO_OUT_MEMBER_NUMBER} "${MEMBER_LENGTH}" PARENT_SCOPE)
-    endif()
+    set(${GMOJO_OUT_MEMBER_NAMES}   "${MEMBER_NAMES}"   PARENT_SCOPE)
+    set(${GMOJO_OUT_MEMBER_VALUES}  "${MEMBER_VALUES}"  PARENT_SCOPE)
+    set(${GMOJO_OUT_MEMBER_NUMBER}  "${MEMBER_LENGTH}"  PARENT_SCOPE)
 endfunction()
 
 
@@ -913,7 +907,7 @@ function(set_json_value_by_dot_notation)
     #
     # Return the content of ${CUR_JSON} to OUT_JSON_OBJECT.
     #
-    set(${SJVBDN_ERROR_VARIABLE} "NOTFOUND" PARENT_SCOPE)
+    set(${SJVBDN_ERROR_VARIABLE}  "NOTFOUND"    PARENT_SCOPE)
     set(${SJVBDN_OUT_JSON_OBJECT} "${CUR_JSON}" PARENT_SCOPE)
 endfunction()
 
@@ -1025,8 +1019,8 @@ function(get_json_value_by_dot_notation)
     # Return the constant string "NOTFOUND" to ERROR_VARIABLE.
     # Return the content of ${CUR_JSON} to OUT_JSON_VALUE.
     #
-    set(${GJVBDN_ERROR_VARIABLE} "NOTFOUND" PARENT_SCOPE)
-    set(${GJVBDN_OUT_JSON_VALUE} "${CUR_JSON}" PARENT_SCOPE)
+    set(${GJVBDN_ERROR_VARIABLE}  "NOTFOUND"    PARENT_SCOPE)
+    set(${GJVBDN_OUT_JSON_VALUE}  "${CUR_JSON}" PARENT_SCOPE)
 endfunction()
 
 
@@ -1172,18 +1166,10 @@ function(get_reference_of_latest_from_repo_and_current_from_json)
     # Return the content of ${LATEST_OBJECT}      to GRLCJ_OUT_LATEST_OBJECT.
     # Return the content of ${LATEST_REFERENCE}   to GRLCJ_OUT_LATEST_REFERENCE.
     #
-    if (GRLCJ_OUT_CURRENT_OBJECT)
-        set(${GRLCJ_OUT_CURRENT_OBJECT} "${CURRENT_OBJECT}" PARENT_SCOPE)
-    endif()
-    if (GRLCJ_OUT_CURRENT_REFERENCE)
-        set(${GRLCJ_OUT_CURRENT_REFERENCE} "${CURRENT_REFERENCE}" PARENT_SCOPE)
-    endif()
-    if (GRLCJ_OUT_LATEST_OBJECT)
-        set(${GRLCJ_OUT_LATEST_OBJECT} "${LATEST_OBJECT}" PARENT_SCOPE)
-    endif()
-    if (GRLCJ_OUT_LATEST_REFERENCE)
-        set(${GRLCJ_OUT_LATEST_REFERENCE} "${LATEST_REFERENCE}" PARENT_SCOPE)
-    endif()
+    set(${GRLCJ_OUT_CURRENT_OBJECT}     "${CURRENT_OBJECT}"     PARENT_SCOPE)
+    set(${GRLCJ_OUT_CURRENT_REFERENCE}  "${CURRENT_REFERENCE}"  PARENT_SCOPE)
+    set(${GRLCJ_OUT_LATEST_OBJECT}      "${LATEST_OBJECT}"      PARENT_SCOPE)
+    set(${GRLCJ_OUT_LATEST_REFERENCE}   "${LATEST_REFERENCE}"   PARENT_SCOPE)
 endfunction()
 
 
