@@ -1217,6 +1217,7 @@ function(get_reference_of_pot_and_po_from_json)
     set(OPTIONS)
     set(ONE_VALUE_ARGS      IN_JSON_CNT
                             IN_VERSION_TYPE
+                            IN_LANGUAGE
                             OUT_POT_OBJECT
                             OUT_POT_REFERENCE
                             OUT_PO_OBJECT
@@ -1231,7 +1232,8 @@ function(get_reference_of_pot_and_po_from_json)
     # Ensure all required arguments are provided.
     #
     set(REQUIRED_ARGS       IN_JSON_CNT
-                            IN_VERSION_TYPE)
+                            IN_VERSION_TYPE
+                            IN_LANGUAGE)
     foreach(ARG ${REQUIRED_ARGS})
         if (NOT DEFINED GRPPJ_${ARG})
             message(FATAL_ERROR "Missing ${ARG} argument.")
@@ -1248,7 +1250,7 @@ function(get_reference_of_pot_and_po_from_json)
         OUT_JSON_VALUE              POT_OBJECT)
     get_json_value_by_dot_notation(
         IN_JSON_OBJECT              "${GRPPJ_IN_JSON_CNT}"
-        IN_DOT_NOTATION             ".po.${_LANGUAGE}"
+        IN_DOT_NOTATION             ".po.${GRPPJ_IN_LANGUAGE}"
         OUT_JSON_VALUE              PO_OBJECT)
     if (GRPPJ_IN_VERSION_TYPE STREQUAL "branch")
         set(DOT_NOTATION            ".commit.hash")
@@ -1269,17 +1271,9 @@ function(get_reference_of_pot_and_po_from_json)
     # Return the content of ${PO_OBJECT}      to GRPPJ_OUT_PO_OBJECT.
     # Return the content of ${PO_REFERENCE}   to GRPPJ_OUT_PO_REFERENCE.
     #
-    if (GRPPJ_OUT_POT_OBJECT)
-        set(${GRPPJ_OUT_POT_OBJECT} "${POT_OBJECT}" PARENT_SCOPE)
-    endif()
-    if (GRPPJ_OUT_POT_REFERENCE)
-        set(${GRPPJ_OUT_POT_REFERENCE} "${POT_REFERENCE}" PARENT_SCOPE)
-    endif()
-    if (GRPPJ_OUT_PO_OBJECT)
-        set(${GRPPJ_OUT_PO_OBJECT} "${PO_OBJECT}" PARENT_SCOPE)
-    endif()
-    if (GRPPJ_OUT_PO_REFERENCE)
-        set(${GRPPJ_OUT_PO_REFERENCE} "${PO_REFERENCE}" PARENT_SCOPE)
-    endif()
+    set(${GRPPJ_OUT_POT_OBJECT}     "${POT_OBJECT}"     PARENT_SCOPE)
+    set(${GRPPJ_OUT_POT_REFERENCE}  "${POT_REFERENCE}"  PARENT_SCOPE)
+    set(${GRPPJ_OUT_PO_OBJECT}      "${PO_OBJECT}"      PARENT_SCOPE)
+    set(${GRPPJ_OUT_PO_REFERENCE}   "${PO_REFERENCE}"   PARENT_SCOPE)
 endfunction()
 
