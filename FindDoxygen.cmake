@@ -79,15 +79,13 @@ if (Doxygen_EXECUTABLE)
         set(Doxygen_VERSION_MINOR "${CMAKE_MATCH_2}")
         set(Doxygen_VERSION_PATCH "${CMAKE_MATCH_3}")
     else()
-        # Set Doxygen_FOUND to FALSE when 'doxygen --version' is broken.
-        set(Doxygen_FOUND FALSE)
         string(APPEND _Doxygen_FAILURE_REASON
-        "The command\n\n"
-        "      \"${Doxygen_EXECUTABLE}\" --version\n\n"
-        "    failed with fatal errors.\n\n"
-        "    result:\n\n${_Doxygen_VERSION_RESULT}\n\n"
-        "    stdout:\n\n${_Doxygen_VERSION_OUTPUT}\n\n"
-        "    stderr:\n\n${_Doxygen_VERSION_ERROR}")
+        "The command\n"
+        "    \"${Doxygen_EXECUTABLE}\" --version\n"
+        "failed with fatal errors.\n"
+        "    result:\n${_Doxygen_VERSION_RESULT}\n"
+        "    stdout:\n${_Doxygen_VERSION_OUTPUT}\n"
+        "    stderr:\n${_Doxygen_VERSION_ERROR}")
     endif()
 endif()
 
@@ -97,6 +95,7 @@ include(FindPackageHandleStandardArgs)
 find_package_handle_standard_args(Doxygen
     REQUIRED_VARS
         Doxygen_EXECUTABLE
+        Doxygen_VERSION
     VERSION_VAR
         Doxygen_VERSION
     FOUND_VAR

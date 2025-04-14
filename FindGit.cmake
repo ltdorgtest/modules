@@ -71,15 +71,13 @@ if (Git_EXECUTABLE)
         set(Git_VERSION_MINOR "${CMAKE_MATCH_2}")
         set(Git_VERSION_PATCH "${CMAKE_MATCH_3}")
     else()
-        # Set Git_FOUND to FALSE when 'crowdin --version' is broken.
-        set(Git_FOUND FALSE)
         string(APPEND _Git_FAILURE_REASON
-        "The command\n\n"
-        "      \"${Git_EXECUTABLE}\" --version\n\n"
-        "    failed with fatal errors.\n\n"
-        "    result:\n\n${_Git_VERSION_RESULT}\n\n"
-        "    stdout:\n\n${_Git_VERSION_OUTPUT}\n\n"
-        "    stderr:\n\n${_Git_VERSION_ERROR}")
+        "The command\n"
+        "    \"${Git_EXECUTABLE}\" --version\n"
+        "failed with fatal errors.\n"
+        "    result:\n${_Git_VERSION_RESULT}\n"
+        "    stdout:\n${_Git_VERSION_OUTPUT}\n"
+        "    stderr:\n${_Git_VERSION_ERROR}")
     endif()
 endif()
 
@@ -89,6 +87,7 @@ include(FindPackageHandleStandardArgs)
 find_package_handle_standard_args(Git
     REQUIRED_VARS
         Git_EXECUTABLE
+        Git_VERSION
     VERSION_VAR
         Git_VERSION
     FOUND_VAR

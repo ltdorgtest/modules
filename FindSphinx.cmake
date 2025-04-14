@@ -158,15 +158,13 @@ if (Sphinx_BUILD_EXECUTABLE)
         set(Sphinx_VERSION_MINOR "${CMAKE_MATCH_2}")
         set(Sphinx_VERSION_PATCH "${CMAKE_MATCH_3}")
     else()
-        # Set Sphinx_Build_FOUND to FALSE when sphinx-build is broken.
-        set(Sphinx_Build_FOUND FALSE)
         string(APPEND _Sphinx_FAILURE_REASON
-        "The command\n\n"
-        "      \"${Sphinx_BUILD_EXECUTABLE}\" --version\n\n"
-        "    failed with fatal errors.\n\n"
-        "    result:\n\n${_Sphinx_VERSION_RESULT}\n\n"
-        "    stdout:\n\n${_Sphinx_VERSION_OUTPUT}\n\n"
-        "    stderr:\n\n${_Sphinx_VERSION_ERROR}")
+        "The command\n"
+        "    \"${Sphinx_EXECUTABLE}\" --version\n"
+        "failed with fatal errors.\n"
+        "    result:\n${_Sphinx_VERSION_RESULT}\n"
+        "    stdout:\n${_Sphinx_VERSION_OUTPUT}\n"
+        "    stderr:\n${_Sphinx_VERSION_ERROR}")
     endif()
 endif()
 
@@ -176,6 +174,7 @@ include(FindPackageHandleStandardArgs)
 find_package_handle_standard_args(Sphinx
     REQUIRED_VARS
         Sphinx_BUILD_EXECUTABLE
+        Sphinx_VERSION
     VERSION_VAR
         Sphinx_VERSION
     FOUND_VAR

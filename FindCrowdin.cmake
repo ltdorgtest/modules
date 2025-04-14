@@ -94,15 +94,13 @@ if (Crowdin_EXECUTABLE)
         set(Crowdin_VERSION_MINOR "${CMAKE_MATCH_2}")
         set(Crowdin_VERSION_PATCH "${CMAKE_MATCH_3}")
     else()
-        # Set Crowdin_FOUND to FALSE when 'crowdin --version' is broken.
-        set(Crowdin_FOUND FALSE)
         string(APPEND _Crowdin_FAILURE_REASON
-        "The command\n\n"
-        "      \"${Crowdin_EXECUTABLE}\" --version\n\n"
-        "    failed with fatal errors.\n\n"
-        "    result:\n\n${_Crowdin_VERSION_RESULT}\n\n"
-        "    stdout:\n\n${_Crowdin_VERSION_OUTPUT}\n\n"
-        "    stderr:\n\n${_Crowdin_VERSION_ERROR}")
+        "The command\n"
+        "    \"${Crowdin_EXECUTABLE}\" --version\n"
+        "failed with fatal errors.\n"
+        "    result:\n${_Crowdin_VERSION_RESULT}\n"
+        "    stdout:\n${_Crowdin_VERSION_OUTPUT}\n"
+        "    stderr:\n${_Crowdin_VERSION_ERROR}")
     endif()
 endif()
 
@@ -112,6 +110,7 @@ include(FindPackageHandleStandardArgs)
 find_package_handle_standard_args(Crowdin
     REQUIRED_VARS
         Crowdin_EXECUTABLE
+        Crowdin_VERSION
     VERSION_VAR
         Crowdin_VERSION
     FOUND_VAR

@@ -78,15 +78,13 @@ if (Conda_EXECUTABLE)
         set(Conda_VERSION_MINOR "${CMAKE_MATCH_2}")
         set(Conda_VERSION_PATCH "${CMAKE_MATCH_3}")
     else()
-        # Set Conda_FOUND to FALSE when 'conda --version' is broken.
-        set(Conda_FOUND FALSE)
         string(APPEND _Conda_FAILURE_REASON
-        "The command\n\n"
-        "      \"${Conda_EXECUTABLE}\" --version\n\n"
-        "    failed with fatal errors.\n\n"
-        "    result:\n\n${_Conda_VERSION_RESULT}\n\n"
-        "    stdout:\n\n${_Conda_VERSION_OUTPUT}\n\n"
-        "    stderr:\n\n${_Conda_VERSION_ERROR}")
+        "The command\n"
+        "    \"${Conda_EXECUTABLE}\" --version\n"
+        "failed with fatal errors.\n"
+        "    result:\n${_Conda_VERSION_RESULT}\n"
+        "    stdout:\n${_Conda_VERSION_OUTPUT}\n"
+        "    stderr:\n${_Conda_VERSION_ERROR}")
     endif()
 endif()
 
@@ -96,6 +94,7 @@ include(FindPackageHandleStandardArgs)
 find_package_handle_standard_args(Conda
     REQUIRED_VARS
         Conda_EXECUTABLE
+        Conda_VERSION
     VERSION_VAR
         Conda_VERSION
     FOUND_VAR

@@ -191,14 +191,13 @@ if (Gettext_XGETTEXT_EXECUTABLE)
         set(Gettext_VERSION_MAJOR "${CMAKE_MATCH_1}")
         set(Gettext_VERSION_MINOR "${CMAKE_MATCH_2}")
     else()
-        # Set Gettext_Xgettext_FOUND to FALSE when 'xgettext --version' is broken.
-        set(Gettext_Xgettext_FOUND FALSE)
         string(APPEND _Gettext_FAILURE_REASON
-        "The command\n\n"
-        "      \"${Gettext_XGETTEXT_EXECUTABLE}\" --version\n\n"
-        "    failed with result: \n\n${_XGETTEXT_VERSION_RESULT}\n\n"
-        "    stdout:\n\n${_XGETTEXT_VERSION_OUTPUT}\n\n"
-        "    stderr:\n\n${_XGETTEXT_VERSION_ERROR}")
+        "The command\n"
+        "    \"${Gettext_EXECUTABLE}\" --version\n"
+        "failed with fatal errors.\n"
+        "    result:\n${_Gettext_VERSION_RESULT}\n"
+        "    stdout:\n${_Gettext_VERSION_OUTPUT}\n"
+        "    stderr:\n${_Gettext_VERSION_ERROR}")
     endif()
 endif()
 
@@ -208,6 +207,7 @@ include(FindPackageHandleStandardArgs)
 find_package_handle_standard_args(Gettext
     REQUIRED_VARS
         Gettext_XGETTEXT_EXECUTABLE
+        Gettext_VERSION
     VERSION_VAR
         Gettext_VERSION
     FOUND_VAR
