@@ -625,9 +625,9 @@ function(get_members_of_json_object)
     endforeach()
     unset(MEMBER_ID)
     #
-    # Return the content of ${MEMBER_NAMES}   to GMOJO_OUT_MEMBER_NAMES.
-    # Return the content of ${MEMBER_VALUES}  to GMOJO_OUT_MEMBER_VALUES.
-    # Return the content of ${MEMBER_LENGTH}  to GMOJO_OUT_MEMBER_NUMBER.
+    # Return the content of ${MEMBER_NAMES}   to the argument of OUT_MEMBER_NAMES.
+    # Return the content of ${MEMBER_VALUES}  to the argument of MEMBER_VALUES.
+    # Return the content of ${MEMBER_LENGTH}  to the argument of OUT_MEMBER_NUMBER.
     #
     set(${GMOJO_OUT_MEMBER_NAMES}   "${MEMBER_NAMES}"   PARENT_SCOPE)
     set(${GMOJO_OUT_MEMBER_VALUES}  "${MEMBER_VALUES}"  PARENT_SCOPE)
@@ -685,7 +685,7 @@ function(set_members_of_commit_json_object)
     string(JSON COMMIT_OBJECT SET "${COMMIT_OBJECT}" "hash"  "${SMOCJO_IN_MEMBER_HASH}")
     string(JSON COMMIT_OBJECT SET "${COMMIT_OBJECT}" "title" "${SMOCJO_IN_MEMBER_TITLE}")
     #
-    # Return the content of ${COMMIT_OBJECT} to SMOCJO_OUT_JSON_OBJECT.
+    # Return the content of ${COMMIT_OBJECT} to the argument of OUT_JSON_OBJECT.
     #
     set(${SMOCJO_OUT_JSON_OBJECT} "${COMMIT_OBJECT}" PARENT_SCOPE)
 endfunction()
@@ -753,7 +753,7 @@ function(set_members_of_reference_json_object)
         message(FATAL_ERROR "Invalid SMORJO_IN_TYPE value. (${SMORJO_IN_TYPE})")
     endif()
     #
-    # Return the content of ${REF_OBJECT} to SMORJO_OUT_JSON_OBJECT.
+    # Return the content of ${REF_OBJECT} to the argument of OUT_JSON_OBJECT.
     #
     set(${SMORJO_OUT_JSON_OBJECT} "${REF_OBJECT}" PARENT_SCOPE)
 endfunction()
@@ -905,8 +905,8 @@ function(set_json_value_by_dot_notation)
         set(CUR_JSON "${CUR_VALUE}")
     endif()
     #
-    # Return the string of "NOTFOUND"   to SJVBDN_ERROR_VARIABLE.
-    # Return the content of ${CUR_JSON} to SJVBDN_OUT_JSON_OBJECT.
+    # Return the string of "NOTFOUND"   to the argument of ERROR_VARIABLE.
+    # Return the content of ${CUR_JSON} to the argument of OUT_JSON_OBJECT.
     #
     set(${SJVBDN_ERROR_VARIABLE}  "NOTFOUND"    PARENT_SCOPE)
     set(${SJVBDN_OUT_JSON_OBJECT} "${CUR_JSON}" PARENT_SCOPE)
@@ -1004,7 +1004,7 @@ function(get_json_value_by_dot_notation)
         string(JSON CUR_JSON ERROR_VARIABLE ERR_VAR GET "${CUR_JSON}" "${CUR_NAME}")
         if (CUR_JSON MATCHES "NOTFOUND$")
             #
-            # Return the error message to ERROR_VARIABLE if ERROR_VARIABLE is provided.
+            # Return the error message to the ERROR_VARIABLE argument if ERROR_VARIABLE is provided.
             # Print the error message as a fatal error if ERROR_VARIABLE is not provided.
             #
             set(ERROR_MESSAGE "${ERR_VAR} (${GJVBDN_IN_DOT_NOTATION})")
@@ -1017,8 +1017,8 @@ function(get_json_value_by_dot_notation)
         endif()
     endif()
     #
-    # Return the constant string "NOTFOUND" to GJVBDN_ERROR_VARIABLE.
-    # Return the content of ${CUR_JSON}     to GJVBDN_OUT_JSON_VALUE.
+    # Return the constant "NOTFOUND"    to the argument of ERROR_VARIABLE.
+    # Return the content of ${CUR_JSON} to the argument of OUT_JSON_VALUE.
     #
     set(${GJVBDN_ERROR_VARIABLE}  "NOTFOUND"    PARENT_SCOPE)
     set(${GJVBDN_OUT_JSON_VALUE}  "${CUR_JSON}" PARENT_SCOPE)
@@ -1162,10 +1162,10 @@ function(get_reference_of_latest_from_repo_and_current_from_json)
         message(FATAL_ERROR "Invalid IN_VERSION_TYPE value. (${GRLCJ_IN_VERSION_TYPE})")
     endif()
     #
-    # Return the content of ${CURRENT_OBJECT}     to GRLCJ_OUT_CURRENT_OBJECT.
-    # Return the content of ${CURRENT_REFERENCE}  to GRLCJ_OUT_CURRENT_REFERENCE.
-    # Return the content of ${LATEST_OBJECT}      to GRLCJ_OUT_LATEST_OBJECT.
-    # Return the content of ${LATEST_REFERENCE}   to GRLCJ_OUT_LATEST_REFERENCE.
+    # Return the content of ${CURRENT_OBJECT}     to the argument of OUT_CURRENT_OBJECT.
+    # Return the content of ${CURRENT_REFERENCE}  to the argument of OUT_CURRENT_REFERENCE.
+    # Return the content of ${LATEST_OBJECT}      to the argument of OUT_LATEST_OBJECT.
+    # Return the content of ${LATEST_REFERENCE}   to the argument of OUT_LATEST_REFERENCE.
     #
     set(${GRLCJ_OUT_CURRENT_OBJECT}     "${CURRENT_OBJECT}"     PARENT_SCOPE)
     set(${GRLCJ_OUT_CURRENT_REFERENCE}  "${CURRENT_REFERENCE}"  PARENT_SCOPE)
@@ -1253,10 +1253,10 @@ function(get_reference_of_pot_and_po_from_json)
         IN_DOT_NOTATION             "${DOT_NOTATION}"
         OUT_JSON_VALUE              PO_REFERENCE)
     #
-    # Return the content of ${POT_OBJECT}     to GRPPJ_OUT_POT_OBJECT.
-    # Return the content of ${POT_REFERENCE}  to GRPPJ_OUT_POT_REFERENCE.
-    # Return the content of ${PO_OBJECT}      to GRPPJ_OUT_PO_OBJECT.
-    # Return the content of ${PO_REFERENCE}   to GRPPJ_OUT_PO_REFERENCE.
+    # Return the content of ${POT_OBJECT}     to the argument of OUT_POT_OBJECT.
+    # Return the content of ${POT_REFERENCE}  to the argument of OUT_POT_REFERENCE.
+    # Return the content of ${PO_OBJECT}      to the argument of OUT_PO_OBJECT.
+    # Return the content of ${PO_REFERENCE}   to the argument of OUT_PO_REFERENCE.
     #
     set(${GRPPJ_OUT_POT_OBJECT}     "${POT_OBJECT}"     PARENT_SCOPE)
     set(${GRPPJ_OUT_POT_REFERENCE}  "${POT_REFERENCE}"  PARENT_SCOPE)

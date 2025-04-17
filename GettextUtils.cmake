@@ -736,15 +736,15 @@ function(caculate_statistic_info_of_gettext)
     math(EXPR PCT_OF_PO_COMPLETED "(${NUM_OF_PO_COMPLETED} * 100) / ${NUM_OF_PO_TOTAL}")
     math(EXPR PCT_OF_MSGID_TRANSLATED "(${NUM_OF_MSGID_TRANSLATED} * 100) / ${NUM_OF_MSGID_TOTAL}")
     #
-    # Return the content of ${NUM_OF_PO_COMPLETED}      to CSIOG_OUT_NUM_OF_PO_COMPLETED.
-    # Return the content of ${NUM_OF_PO_PROGRESSING}    to CSIOG_OUT_NUM_OF_PO_PROGRESSING.
-    # Return the content of ${NUM_OF_PO_UNSTARTED}      to CSIOG_OUT_NUM_OF_PO_UNSTARTED.
-    # Return the content of ${NUM_OF_PO_TOTAL}          to CSIOG_OUT_NUM_OF_PO_TOTAL.
-    # Return the content of ${PCT_OF_PO_COMPLETED}      to CSIOG_OUT_PCT_OF_PO_COMPLETED.
-    # Return the content of ${NUM_OF_MSGID_TRANSLATED}  to CSIOG_OUT_NUM_OF_MSGID_TRANSLATED.
-    # Return the content of ${NUM_OF_MSGID_FUZZY}       to CSIOG_OUT_NUM_OF_MSGID_FUZZY.
-    # Return the content of ${NUM_OF_MSGID_TOTAL}       to CSIOG_OUT_NUM_OF_MSGID_TOTAL.
-    # Return the content of ${PCT_OF_MSGID_TRANSLATED}  to CSIOG_OUT_PCT_OF_MSGID_TRANSLATED.
+    # Return the content of ${NUM_OF_PO_COMPLETED}      to the argument of OUT_NUM_OF_PO_COMPLETED.
+    # Return the content of ${NUM_OF_PO_PROGRESSING}    to the argument of OUT_NUM_OF_PO_PROGRESSING.
+    # Return the content of ${NUM_OF_PO_UNSTARTED}      to the argument of OUT_NUM_OF_PO_UNSTARTED.
+    # Return the content of ${NUM_OF_PO_TOTAL}          to the argument of OUT_NUM_OF_PO_TOTAL.
+    # Return the content of ${PCT_OF_PO_COMPLETED}      to the argument of OUT_PCT_OF_PO_COMPLETED.
+    # Return the content of ${NUM_OF_MSGID_TRANSLATED}  to the argument of OUT_NUM_OF_MSGID_TRANSLATED.
+    # Return the content of ${NUM_OF_MSGID_FUZZY}       to the argument of OUT_NUM_OF_MSGID_FUZZY.
+    # Return the content of ${NUM_OF_MSGID_TOTAL}       to the argument of OUT_NUM_OF_MSGID_TOTAL.
+    # Return the content of ${PCT_OF_MSGID_TRANSLATED}  to the argument of OUT_PCT_OF_MSGID_TRANSLATED.
     #
     set(${CSIOG_OUT_NUM_OF_PO_COMPLETED}      "${NUM_OF_PO_COMPLETED}"      PARENT_SCOPE)
     set(${CSIOG_OUT_NUM_OF_PO_PROGRESSING}    "${NUM_OF_PO_PROGRESSING}"    PARENT_SCOPE)
