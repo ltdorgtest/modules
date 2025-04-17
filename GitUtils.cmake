@@ -175,10 +175,10 @@ function(create_git_worktree_for_l10n_branch)
                     set(REMOTE_NAME "${OUT_VAR}")
                 else()
                     string(APPEND FAILURE_REASON
-                    "The command failed with fatal errors.\n\n"
-                    "    result:\n\n${RES_VAR}\n\n"
-                    "    stdout:\n\n${OUT_VAR}\n\n"
-                    "    stderr:\n\n${ERR_VAR}")
+                    "The command failed with fatal errors.\n"
+                    "    result:\n${RES_VAR}\n"
+                    "    stdout:\n${OUT_VAR}\n"
+                    "    stderr:\n${ERR_VAR}")
                     message(FATAL_ERROR "${FAILURE_REASON}")
                 endif()
                 message(STATUS "Adding fetch refspec 'refs/heads/l10n:refs/remotes/${REMOTE_NAME}/l10n'...")
@@ -206,10 +206,10 @@ function(create_git_worktree_for_l10n_branch)
                         COMMAND_ERROR_IS_FATAL ANY)
                 else()
                     string(APPEND FAILURE_REASON
-                    "The command failed with fatal errors.\n\n"
-                    "    result:\n\n${RES_VAR}\n\n"
-                    "    stdout:\n\n${OUT_VAR}\n\n"
-                    "    stderr:\n\n${ERR_VAR}")
+                    "The command failed with fatal errors.\n"
+                    "    result:\n${RES_VAR}\n"
+                    "    stdout:\n${OUT_VAR}\n"
+                    "    stderr:\n${ERR_VAR}")
                     message(FATAL_ERROR "${FAILURE_REASON}")
                 endif()
                 execute_process(
@@ -327,10 +327,10 @@ function(get_git_latest_branch_on_branch_pattern)
                 set(GGLBBP_REPO_REMOTE_NAME "${OUT_VAR}")
             else()
                 string(APPEND FAILURE_REASON
-                "The command failed with fatal errors.\n\n"
-                "    result:\n\n${RES_VAR}\n\n"
-                "    stdout:\n\n${OUT_VAR}\n\n"
-                "    stderr:\n\n${ERR_VAR}")
+                "The command failed with fatal errors.\n"
+                "    result:\n${RES_VAR}\n"
+                "    stdout:\n${OUT_VAR}\n"
+                "    stderr:\n${ERR_VAR}")
                 message(FATAL_ERROR "${FAILURE_REASON}")
             endif()
             execute_process(
@@ -343,10 +343,10 @@ function(get_git_latest_branch_on_branch_pattern)
                 set(REPOSITORY "${OUT_VAR}")
             else()
                 string(APPEND FAILURE_REASON
-                "The command failed with fatal errors.\n\n"
-                "    result:\n\n${RES_VAR}\n\n"
-                "    stdout:\n\n${OUT_VAR}\n\n"
-                "    stderr:\n\n${ERR_VAR}")
+                "The command failed with fatal errors.\n"
+                "    result:\n${RES_VAR}\n"
+                "    stdout:\n${OUT_VAR}\n"
+                "    stderr:\n${ERR_VAR}")
                 message(FATAL_ERROR "${FAILURE_REASON}")
             endif()
         endif()
@@ -370,10 +370,10 @@ function(get_git_latest_branch_on_branch_pattern)
     if (RES_VAR EQUAL 0)
     else()
         string(APPEND FAILURE_REASON
-        "The command failed with fatal errors.\n\n"
-        "    result:\n\n${RES_VAR}\n\n"
-        "    stdout:\n\n${OUT_VAR}\n\n"
-        "    stderr:\n\n${ERR_VAR}")
+        "The command failed with fatal errors.\n"
+        "    result:\n${RES_VAR}\n"
+        "    stdout:\n${OUT_VAR}\n"
+        "    stderr:\n${ERR_VAR}")
         message(FATAL_ERROR "${FAILURE_REASON}")
     endif()
     string(REPLACE "\n" ";" BRANCH_LINES "${OUT_VAR}")
@@ -442,10 +442,10 @@ function(get_git_latest_commit_on_branch_name)
             set(GGLCBN_REPO_SOURCE "${OUT_VAR}")
         else()
             string(APPEND FAILURE_REASON
-            "The command failed with fatal errors.\n\n"
-            "    result:\n\n${RES_VAR}\n\n"
-            "    stdout:\n\n${OUT_VAR}\n\n"
-            "    stderr:\n\n${ERR_VAR}")
+            "The command failed with fatal errors.\n"
+            "    result:\n${RES_VAR}\n"
+            "    stdout:\n${OUT_VAR}\n"
+            "    stderr:\n${ERR_VAR}")
             message(FATAL_ERROR "${FAILURE_REASON}")
         endif()
     else()
@@ -474,10 +474,10 @@ function(get_git_latest_commit_on_branch_name)
         endif()
     else()
         string(APPEND FAILURE_REASON
-        "The command failed with fatal errors.\n\n"
-        "    result:\n\n${RES_VAR}\n\n"
-        "    stdout:\n\n${OUT_VAR}\n\n"
-        "    stderr:\n\n${ERR_VAR}")
+        "The command failed with fatal errors.\n"
+        "    result:\n${RES_VAR}\n"
+        "    stdout:\n${OUT_VAR}\n"
+        "    stderr:\n${ERR_VAR}")
         message(FATAL_ERROR "${FAILURE_REASON}")
     endif()
     #
@@ -495,10 +495,10 @@ function(get_git_latest_commit_on_branch_name)
     if (RES_VAR EQUAL 0)
     else()
         string(APPEND FAILURE_REASON
-        "The command failed with fatal errors.\n\n"
-        "    result:\n\n${RES_VAR}\n\n"
-        "    stdout:\n\n${OUT_VAR}\n\n"
-        "    stderr:\n\n${ERR_VAR}")
+        "The command failed with fatal errors.\n"
+        "    result:\n${RES_VAR}\n"
+        "    stdout:\n${OUT_VAR}\n"
+        "    stderr:\n${ERR_VAR}")
         message(FATAL_ERROR "${FAILURE_REASON}")
     endif()
     #
@@ -517,10 +517,10 @@ function(get_git_latest_commit_on_branch_name)
         set(LATEST_COMMIT_HASH ${OUT_VAR})
     else()
         string(APPEND FAILURE_REASON
-        "The command failed with fatal errors.\n\n"
-        "    result:\n\n${RES_VAR}\n\n"
-        "    stdout:\n\n${OUT_VAR}\n\n"
-        "    stderr:\n\n${ERR_VAR}")
+        "The command failed with fatal errors.\n"
+        "    result:\n${RES_VAR}\n"
+        "    stdout:\n${OUT_VAR}\n"
+        "    stderr:\n${ERR_VAR}")
         message(FATAL_ERROR "${FAILURE_REASON}")
     endif()
     #
@@ -539,10 +539,10 @@ function(get_git_latest_commit_on_branch_name)
         set(LATEST_COMMIT_DATE ${OUT_VAR})
     else()
         string(APPEND FAILURE_REASON
-        "The command failed with fatal errors.\n\n"
-        "    result:\n\n${RES_VAR}\n\n"
-        "    stdout:\n\n${OUT_VAR}\n\n"
-        "    stderr:\n\n${ERR_VAR}")
+        "The command failed with fatal errors.\n"
+        "    result:\n${RES_VAR}\n"
+        "    stdout:\n${OUT_VAR}\n"
+        "    stderr:\n${ERR_VAR}")
         message(FATAL_ERROR "${FAILURE_REASON}")
     endif()
     #
@@ -565,10 +565,10 @@ function(get_git_latest_commit_on_branch_name)
         string(REPLACE ";" ":" LATEST_COMMIT_TITLE "${LATEST_COMMIT_TITLE}")
     else()
         string(APPEND FAILURE_REASON
-        "The command failed with fatal errors.\n\n"
-        "    result:\n\n${RES_VAR}\n\n"
-        "    stdout:\n\n${OUT_VAR}\n\n"
-        "    stderr:\n\n${ERR_VAR}")
+        "The command failed with fatal errors.\n"
+        "    result:\n${RES_VAR}\n"
+        "    stdout:\n${OUT_VAR}\n"
+        "    stderr:\n${ERR_VAR}")
         message(FATAL_ERROR "${FAILURE_REASON}")
     endif()
     #
@@ -633,10 +633,10 @@ function(get_git_latest_tag_on_tag_pattern)
             set(GGLTTP_REPO_REMOTE_NAME "${OUT_VAR}")
         else()
             string(APPEND FAILURE_REASON
-            "The command failed with fatal errors.\n\n"
-            "    result:\n\n${RES_VAR}\n\n"
-            "    stdout:\n\n${OUT_VAR}\n\n"
-            "    stderr:\n\n${ERR_VAR}")
+            "The command failed with fatal errors.\n"
+            "    result:\n${RES_VAR}\n"
+            "    stdout:\n${OUT_VAR}\n"
+            "    stderr:\n${ERR_VAR}")
             message(FATAL_ERROR "${FAILURE_REASON}")
         endif()
         execute_process(
@@ -649,10 +649,10 @@ function(get_git_latest_tag_on_tag_pattern)
             set(GGLTTP_REPO_SOURCE "${OUT_VAR}")
         else()
             string(APPEND FAILURE_REASON
-            "The command failed with fatal errors.\n\n"
-            "    result:\n\n${RES_VAR}\n\n"
-            "    stdout:\n\n${OUT_VAR}\n\n"
-            "    stderr:\n\n${ERR_VAR}")
+            "The command failed with fatal errors.\n"
+            "    result:\n${RES_VAR}\n"
+            "    stdout:\n${OUT_VAR}\n"
+            "    stderr:\n${ERR_VAR}")
             message(FATAL_ERROR "${FAILURE_REASON}")
         endif()
     else()
@@ -670,10 +670,10 @@ function(get_git_latest_tag_on_tag_pattern)
     if (RES_VAR EQUAL 0)
     else()
         string(APPEND FAILURE_REASON
-        "The command failed with fatal errors.\n\n"
-        "    result:\n\n${RES_VAR}\n\n"
-        "    stdout:\n\n${OUT_VAR}\n\n"
-        "    stderr:\n\n${ERR_VAR}")
+        "The command failed with fatal errors.\n"
+        "    result:\n${RES_VAR}\n"
+        "    stdout:\n${OUT_VAR}\n"
+        "    stderr:\n${ERR_VAR}")
         message(FATAL_ERROR "${FAILURE_REASON}")
     endif()
     #
@@ -692,10 +692,10 @@ function(get_git_latest_tag_on_tag_pattern)
     if (RES_VAR EQUAL 0)
     else()
         string(APPEND FAILURE_REASON
-        "The command failed with fatal errors.\n\n"
-        "    result:\n\n${RES_VAR}\n\n"
-        "    stdout:\n\n${OUT_VAR}\n\n"
-        "    stderr:\n\n${ERR_VAR}")
+        "The command failed with fatal errors.\n"
+        "    result:\n${RES_VAR}\n"
+        "    stdout:\n${OUT_VAR}\n"
+        "    stderr:\n${ERR_VAR}")
         message(FATAL_ERROR "${FAILURE_REASON}")
     endif()
     string(REPLACE "\n" ";" TAG_LINES "${OUT_VAR}")

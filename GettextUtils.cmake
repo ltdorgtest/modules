@@ -69,10 +69,10 @@ function(update_sphinx_pot_from_def_to_pkg)
             endif()
         else()
             string(APPEND FAILURE_REASON
-            "The command failed with fatal errors.\n\n"
-            "    result:\n\n${RES_VAR}\n\n"
-            "    stdout:\n\n${OUT_VAR}\n\n"
-            "    stderr:\n\n${ERR_VAR}")
+            "The command failed with fatal errors.\n"
+            "    result:\n${RES_VAR}\n"
+            "    stdout:\n${OUT_VAR}\n"
+            "    stderr:\n${ERR_VAR}")
             message(FATAL_ERROR "${FAILURE_REASON}")
         endif()
     else()
@@ -95,10 +95,10 @@ function(update_sphinx_pot_from_def_to_pkg)
         if (RES_VAR EQUAL 0)
         else()
             string(APPEND FAILURE_REASON
-            "The command failed with fatal errors.\n\n"
-            "    result:\n\n${RES_VAR}\n\n"
-            "    stdout:\n\n${OUT_VAR}\n\n"
-            "    stderr:\n\n${ERR_VAR}")
+            "The command failed with fatal errors.\n"
+            "    result:\n${RES_VAR}\n"
+            "    stdout:\n${OUT_VAR}\n"
+            "    stderr:\n${ERR_VAR}")
             message(FATAL_ERROR "${FAILURE_REASON}")
         endif()
     endif()
@@ -219,10 +219,10 @@ function(update_pot_from_src_to_dst)
                 endif()
             else()
                 string(APPEND FAILURE_REASON
-                "The command failed with fatal errors.\n\n"
-                "    result:\n\n${RES_VAR}\n\n"
-                "    stdout:\n\n${OUT_VAR}\n\n"
-                "    stderr:\n\n${ERR_VAR}")
+                "The command failed with fatal errors.\n"
+                "    result:\n${RES_VAR}\n"
+                "    stdout:\n${OUT_VAR}\n"
+                "    stderr:\n${ERR_VAR}")
                 message(FATAL_ERROR "${FAILURE_REASON}")
             endif()
             _override_header_entry_from_src_to_dst(
@@ -254,10 +254,10 @@ function(update_pot_from_src_to_dst)
                 endif()
             else()
                 string(APPEND FAILURE_REASON
-                "The command failed with fatal errors.\n\n"
-                "    result:\n\n${RES_VAR}\n\n"
-                "    stdout:\n\n${OUT_VAR}\n\n"
-                "    stderr:\n\n${ERR_VAR}")
+                "The command failed with fatal errors.\n"
+                "    result:\n${RES_VAR}\n"
+                "    stdout:\n${OUT_VAR}\n"
+                "    stderr:\n${ERR_VAR}")
                 message(FATAL_ERROR "${FAILURE_REASON}")
             endif()
         endif()
@@ -339,10 +339,10 @@ function(update_po_from_pot_in_locale)
             if (RES_VAR EQUAL 0)
             else()
                 string(APPEND FAILURE_REASON
-                "The command failed with fatal errors.\n\n"
-                "    result:\n\n${RES_VAR}\n\n"
-                "    stdout:\n\n${OUT_VAR}\n\n"
-                "    stderr:\n\n${ERR_VAR}")
+                "The command failed with fatal errors.\n"
+                "    result:\n${RES_VAR}\n"
+                "    stdout:\n${OUT_VAR}\n"
+                "    stderr:\n${ERR_VAR}")
                 message(FATAL_ERROR "${FAILURE_REASON}")
             endif()
             _override_header_entry_from_src_to_dst(
@@ -369,10 +369,10 @@ function(update_po_from_pot_in_locale)
             if (RES_VAR EQUAL 0)
             else()
                 string(APPEND FAILURE_REASON
-                "The command failed with fatal errors.\n\n"
-                "    result:\n\n${RES_VAR}\n\n"
-                "    stdout:\n\n${OUT_VAR}\n\n"
-                "    stderr:\n\n${ERR_VAR}")
+                "The command failed with fatal errors.\n"
+                "    result:\n${RES_VAR}\n"
+                "    stdout:\n${OUT_VAR}\n"
+                "    stderr:\n${ERR_VAR}")
                 message(FATAL_ERROR "${FAILURE_REASON}")
             endif()
         endif()
@@ -437,10 +437,10 @@ function(concat_po_from_locale_to_compendium)
     if (RES_VAR EQUAL 0)
     else()
         string(APPEND FAILURE_REASON
-        "The command failed with fatal errors.\n\n"
-        "    result:\n\n${RES_VAR}\n\n"
-        "    stdout:\n\n${OUT_VAR}\n\n"
-        "    stderr:\n\n${ERR_VAR}")
+        "The command failed with fatal errors.\n"
+        "    result:\n${RES_VAR}\n"
+        "    stdout:\n${OUT_VAR}\n"
+        "    stderr:\n${ERR_VAR}")
         message(FATAL_ERROR "${FAILURE_REASON}")
     endif()
 endfunction()
@@ -532,10 +532,10 @@ function(merge_po_from_src_to_dst_with_compendium)
             endif()
         else()
             string(APPEND FAILURE_REASON
-            "The command failed with fatal errors.\n\n"
-            "    result:\n\n${RES_VAR}\n\n"
-            "    stdout:\n\n${OUT_VAR}\n\n"
-            "    stderr:\n\n${ERR_VAR}")
+            "The command failed with fatal errors.\n"
+            "    result:\n${RES_VAR}\n"
+            "    stdout:\n${OUT_VAR}\n"
+            "    stderr:\n${ERR_VAR}")
             message(FATAL_ERROR "${FAILURE_REASON}")
         endif()
     endforeach()
@@ -620,10 +620,10 @@ function(caculate_statistic_info_of_gettext)
             endif()
         else()
             string(APPEND FAILURE_REASON
-            "The command failed with fatal errors.\n\n"
-            "    result:\n\n${TOTAL_MSGID_RES}\n\n"
-            "    stdout:\n\n${TOTAL_MSGID_OUT}\n\n"
-            "    stderr:\n\n${TOTAL_MSGID_ERR}")
+            "The command failed with fatal errors.\n"
+            "    result:\n${TOTAL_MSGID_RES}\n"
+            "    stdout:\n${TOTAL_MSGID_OUT}\n"
+            "    stderr:\n${TOTAL_MSGID_ERR}")
             message(FATAL_ERROR "${FAILURE_REASON}")
         endif()
         #
@@ -645,10 +645,10 @@ function(caculate_statistic_info_of_gettext)
             endif()
         else()
             string(APPEND FAILURE_REASON
-            "The command failed with fatal errors.\n\n"
-            "    result:\n\n${TRANSLATED_MSGID_RES}\n\n"
-            "    stdout:\n\n${TRANSLATED_MSGID_OUT}\n\n"
-            "    stderr:\n\n${TRANSLATED_MSGID_ERR}")
+            "The command failed with fatal errors.\n"
+            "    result:\n${TRANSLATED_MSGID_RES}\n"
+            "    stdout:\n${TRANSLATED_MSGID_OUT}\n"
+            "    stderr:\n${TRANSLATED_MSGID_ERR}")
             message(FATAL_ERROR "${FAILURE_REASON}")
         endif()
         #
@@ -671,10 +671,10 @@ function(caculate_statistic_info_of_gettext)
             endif()
         else()
             string(APPEND FAILURE_REASON
-            "The command failed with fatal errors.\n\n"
-            "    result:\n\n${FUZZY_MSGID_RES}\n\n"
-            "    stdout:\n\n${FUZZY_MSGID_OUT}\n\n"
-            "    stderr:\n\n${FUZZY_MSGID_ERR}")
+            "The command failed with fatal errors.\n"
+            "    result:\n${FUZZY_MSGID_RES}\n"
+            "    stdout:\n${FUZZY_MSGID_OUT}\n"
+            "    stderr:\n${FUZZY_MSGID_ERR}")
             message(FATAL_ERROR "${FAILURE_REASON}")
         endif()
         #
