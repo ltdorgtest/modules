@@ -66,7 +66,7 @@ if(mdBook_EXECUTABLE)
         OUTPUT_VARIABLE _MDBOOK_VERSION_OUTPUT
         OUTPUT_STRIP_TRAILING_WHITESPACE)
 
-    string(REGEX MATCH "([0-9]+)\\(.[0-9]+)\\.([0-9]+)" mdBook_VERSION ${_MDBOOK_VERSION_OUTPUT})
+    string(REGEX MATCH "([0-9]+)\\.([0-9]+)\\.([0-9]+)" mdBook_VERSION ${_MDBOOK_VERSION_OUTPUT})
     set(mdBook_VERSION_MAJOR "${CMAKE_MATCH_1}")
     set(mdBook_VERSION_MINOR "${CMAKE_MATCH_2}")
     set(mdBook_VERSION_PATCH "${CMAKE_MATCH_3}")
