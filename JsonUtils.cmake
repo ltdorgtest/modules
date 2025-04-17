@@ -625,9 +625,9 @@ function(get_members_of_json_object)
     endforeach()
     unset(MEMBER_ID)
     #
-    # Return the content of ${MEMBER_NAMES} to OUT_MEMBER_NAMES (if exists).
-    # Return the content of ${MEMBER_VALUES} to OUT_MEMBER_VALUES (if exists).
-    # Return the content of ${MEMBER_LENGTH} to OUT_MEMBER_LENGTH (if exists).
+    # Return the content of ${MEMBER_NAMES}   to GMOJO_OUT_MEMBER_NAMES.
+    # Return the content of ${MEMBER_VALUES}  to GMOJO_OUT_MEMBER_VALUES.
+    # Return the content of ${MEMBER_LENGTH}  to GMOJO_OUT_MEMBER_NUMBER.
     #
     set(${GMOJO_OUT_MEMBER_NAMES}   "${MEMBER_NAMES}"   PARENT_SCOPE)
     set(${GMOJO_OUT_MEMBER_VALUES}  "${MEMBER_VALUES}"  PARENT_SCOPE)
@@ -685,7 +685,7 @@ function(set_members_of_commit_json_object)
     string(JSON COMMIT_OBJECT SET "${COMMIT_OBJECT}" "hash"  "${SMOCJO_IN_MEMBER_HASH}")
     string(JSON COMMIT_OBJECT SET "${COMMIT_OBJECT}" "title" "${SMOCJO_IN_MEMBER_TITLE}")
     #
-    # Return the content of ${COMMIT_OBJECT} to OUT_JSON_OBJECT.
+    # Return the content of ${COMMIT_OBJECT} to SMOCJO_OUT_JSON_OBJECT.
     #
     set(${SMOCJO_OUT_JSON_OBJECT} "${COMMIT_OBJECT}" PARENT_SCOPE)
 endfunction()
@@ -753,7 +753,7 @@ function(set_members_of_reference_json_object)
         message(FATAL_ERROR "Invalid SMORJO_IN_TYPE value. (${SMORJO_IN_TYPE})")
     endif()
     #
-    # Return the content of ${REF_OBJECT} to OUT_JSON_OBJECT.
+    # Return the content of ${REF_OBJECT} to SMORJO_OUT_JSON_OBJECT.
     #
     set(${SMORJO_OUT_JSON_OBJECT} "${REF_OBJECT}" PARENT_SCOPE)
 endfunction()
@@ -905,7 +905,8 @@ function(set_json_value_by_dot_notation)
         set(CUR_JSON "${CUR_VALUE}")
     endif()
     #
-    # Return the content of ${CUR_JSON} to OUT_JSON_OBJECT.
+    # Return the string of "NOTFOUND"   to SJVBDN_ERROR_VARIABLE.
+    # Return the content of ${CUR_JSON} to SJVBDN_OUT_JSON_OBJECT.
     #
     set(${SJVBDN_ERROR_VARIABLE}  "NOTFOUND"    PARENT_SCOPE)
     set(${SJVBDN_OUT_JSON_OBJECT} "${CUR_JSON}" PARENT_SCOPE)
@@ -1016,8 +1017,8 @@ function(get_json_value_by_dot_notation)
         endif()
     endif()
     #
-    # Return the constant string "NOTFOUND" to ERROR_VARIABLE.
-    # Return the content of ${CUR_JSON} to OUT_JSON_VALUE.
+    # Return the constant string "NOTFOUND" to GJVBDN_ERROR_VARIABLE.
+    # Return the content of ${CUR_JSON}     to GJVBDN_OUT_JSON_VALUE.
     #
     set(${GJVBDN_ERROR_VARIABLE}  "NOTFOUND"    PARENT_SCOPE)
     set(${GJVBDN_OUT_JSON_VALUE}  "${CUR_JSON}" PARENT_SCOPE)

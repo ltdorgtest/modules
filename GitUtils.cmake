@@ -385,7 +385,7 @@ function(get_git_latest_branch_on_branch_pattern)
     list(FILTER BRANCH_LIST INCLUDE REGEX "${GGLBBP_IN_BRANCH_PATTERN}")
     list(GET BRANCH_LIST 0 LATEST_BRANCH)
     #
-    # Return the ${LATEST_BRANCH} on OUT_BRANCH.
+    # Return the content of ${LATEST_BRANCH}  to GGLBBP_OUT_BRANCH.
     #
     set(${GGLBBP_OUT_BRANCH} "${LATEST_BRANCH}" PARENT_SCOPE)
 endfunction()
@@ -572,7 +572,9 @@ function(get_git_latest_commit_on_branch_name)
         message(FATAL_ERROR "${FAILURE_REASON}")
     endif()
     #
-    # Return OUT_COMMIT_DATE, OUT_COMMIT_HASH, and OUT_COMMIT_TITLE.
+    # Return the content of ${LATEST_COMMIT_DATE}   to GGLCBN_OUT_COMMIT_DATE.
+    # Return the content of ${LATEST_COMMIT_HASH}   to GGLCBN_OUT_COMMIT_HASH.
+    # Return the content of ${LATEST_COMMIT_TITLE}  to GGLCBN_OUT_COMMIT_TITLE.
     #
     set(${GGLCBN_OUT_COMMIT_DATE}  "${LATEST_COMMIT_DATE}"  PARENT_SCOPE)
     set(${GGLCBN_OUT_COMMIT_HASH}  "${LATEST_COMMIT_HASH}"  PARENT_SCOPE)
@@ -707,7 +709,7 @@ function(get_git_latest_tag_on_tag_pattern)
     list(FILTER TAG_LIST INCLUDE REGEX "${GGLTTP_IN_TAG_PATTERN}")
     list(GET TAG_LIST 0 LATEST_TAG)
     #
-    # Return the ${LATEST_TAG} on OUT_TAG.
+    # Return the content of ${LATEST_TAG} to GGLTTP_OUT_TAG.
     #
     set(${GGLTTP_OUT_TAG} "${LATEST_TAG}" PARENT_SCOPE)
 endfunction()
