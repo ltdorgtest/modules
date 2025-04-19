@@ -62,13 +62,24 @@ find_program(Dasel_EXECUTABLE
 if (Dasel_EXECUTABLE)
     execute_process(
         COMMAND "${Dasel_EXECUTABLE}" --version
-        OUTPUT_VARIABLE _DASEL_VERSION_OUTPUT
-        OUTPUT_STRIP_TRAILING_WHITESPACE)
+        RESULT_VARIABLE _Dasel_VERSION_RESULT
+        OUTPUT_VARIABLE _Dasel_VERSION_OUTPUT OUTPUT_STRIP_TRAILING_WHITESPACE
+        ERROR_VARIABLE  _Dasel_VERSION_ERROR  ERROR_STRIP_TRAILING_WHITESPACE)
 
-    string(REGEX MATCH "([0-9]+)\\.([0-9]+)\\.([0-9]+)" Dasel_VERSION ${_DASEL_VERSION_OUTPUT})
-    set(Dasel_VERSION_MAJOR "${CMAKE_MATCH_1}")
-    set(Dasel_VERSION_MINOR "${CMAKE_MATCH_2}")
-    set(Dasel_VERSION_PATCH "${CMAKE_MATCH_3}")
+    if (_Dasel_VERSION_RESULT EQUAL 0)
+        string(REGEX MATCH "([0-9]+)\\.([0-9]+)\\.([0-9]+)" Dasel_VERSION ${_Dasel_VERSION_OUTPUT})
+        set(Dasel_VERSION_MAJOR "${CMAKE_MATCH_1}")
+        set(Dasel_VERSION_MINOR "${CMAKE_MATCH_2}")
+        set(Dasel_VERSION_PATCH "${CMAKE_MATCH_3}")
+    else()
+        string(APPEND _Dasel_FAILURE_REASON
+        "The command\n"
+        "    \"${Dasel_EXECUTABLE}\" --version\n"
+        "failed with fatal errors.\n"
+        "    result:\n${_Dasel_VERSION_RESULT}\n"
+        "    stdout:\n${_Dasel_VERSION_OUTPUT}\n"
+        "    stderr:\n${_Dasel_VERSION_ERROR}")
+    endif()
 endif()
 
 # Handle REQUIRED and QUIET arguments

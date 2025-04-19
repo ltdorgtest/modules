@@ -63,13 +63,24 @@ find_program(mdBook_EXECUTABLE
 if (mdBook_EXECUTABLE)
     execute_process(
         COMMAND "${mdBook_EXECUTABLE}" --version
-        OUTPUT_VARIABLE _MDBOOK_VERSION_OUTPUT
-        OUTPUT_STRIP_TRAILING_WHITESPACE)
+        RESULT_VARIABLE _mdBook_VERSION_RESULT
+        OUTPUT_VARIABLE _mdBook_VERSION_OUTPUT OUTPUT_STRIP_TRAILING_WHITESPACE
+        ERROR_VARIABLE  _mdBook_VERSION_ERROR  ERROR_STRIP_TRAILING_WHITESPACE)
 
-    string(REGEX MATCH "([0-9]+)\\.([0-9]+)\\.([0-9]+)" mdBook_VERSION ${_MDBOOK_VERSION_OUTPUT})
-    set(mdBook_VERSION_MAJOR "${CMAKE_MATCH_1}")
-    set(mdBook_VERSION_MINOR "${CMAKE_MATCH_2}")
-    set(mdBook_VERSION_PATCH "${CMAKE_MATCH_3}")
+    if (_mdBook_VERSION_RESULT EQUAL 0)
+        string(REGEX MATCH "([0-9]+)\\.([0-9]+)\\.([0-9]+)" mdBook_VERSION ${_mdBook_VERSION_OUTPUT})
+        set(mdBook_VERSION_MAJOR "${CMAKE_MATCH_1}")
+        set(mdBook_VERSION_MINOR "${CMAKE_MATCH_2}")
+        set(mdBook_VERSION_PATCH "${CMAKE_MATCH_3}")
+    else()
+        string(APPEND _mdBook_FAILURE_REASON
+        "The command\n"
+        "    \"${mdBook_EXECUTABLE}\" --version\n"
+        "failed with fatal errors.\n"
+        "    result:\n${_mdBook_VERSION_RESULT}\n"
+        "    stdout:\n${_mdBook_VERSION_OUTPUT}\n"
+        "    stderr:\n${_mdBook_VERSION_ERROR}")
+    endif()
 endif()
 
 # Handle REQUIRED and QUIET arguments

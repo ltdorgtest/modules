@@ -62,14 +62,25 @@ find_program(Cargo_EXECUTABLE
 
 if (Cargo_EXECUTABLE)
     execute_process(
-        COMMAND ${Cargo_EXECUTABLE} --version
-        OUTPUT_VARIABLE _CARGO_VERSION_OUTPUT
-        OUTPUT_STRIP_TRAILING_WHITESPACE)
+        COMMAND "${Cargo_EXECUTABLE}" --version
+        RESULT_VARIABLE _Cargo_VERSION_RESULT
+        OUTPUT_VARIABLE _Cargo_VERSION_OUTPUT OUTPUT_STRIP_TRAILING_WHITESPACE
+        ERROR_VARIABLE  _Cargo_VERSION_ERROR  ERROR_STRIP_TRAILING_WHITESPACE)
 
-    string(REGEX MATCH "([0-9]+)\\.([0-9]+)\\.([0-9]+)" Cargo_VERSION ${_CARGO_VERSION_OUTPUT})
-    set(Cargo_VERSION_MAJOR "${CMAKE_MATCH_1}")
-    set(Cargo_VERSION_MINOR "${CMAKE_MATCH_2}")
-    set(Cargo_VERSION_PATCH "${CMAKE_MATCH_3}")
+    if (_Cargo_VERSION_RESULT EQUAL 0)
+        string(REGEX MATCH "([0-9]+)\\.([0-9]+)\\.([0-9]+)" Cargo_VERSION ${_Cargo_VERSION_OUTPUT})
+        set(Cargo_VERSION_MAJOR "${CMAKE_MATCH_1}")
+        set(Cargo_VERSION_MINOR "${CMAKE_MATCH_2}")
+        set(Cargo_VERSION_PATCH "${CMAKE_MATCH_3}")
+    else()
+        string(APPEND _Cargo_FAILURE_REASON
+        "The command\n"
+        "    \"${Cargo_EXECUTABLE}\" --version\n"
+        "failed with fatal errors.\n"
+        "    result:\n${_Cargo_VERSION_RESULT}\n"
+        "    stdout:\n${_Cargo_VERSION_OUTPUT}\n"
+        "    stderr:\n${_Cargo_VERSION_ERROR}")
+    endif()
 endif()
 
 # Handle REQUIRED and QUIET arguments
