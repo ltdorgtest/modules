@@ -60,7 +60,7 @@ find_program(Cargo_EXECUTABLE
     PATHS ${_Cargo_SEARCH_PATHS}
     DOC "The full path to the cargo executable.")
 
-if(Cargo_EXECUTABLE)
+if (Cargo_EXECUTABLE)
     execute_process(
         COMMAND ${Cargo_EXECUTABLE} --version
         OUTPUT_VARIABLE _CARGO_VERSION_OUTPUT
@@ -85,10 +85,10 @@ find_package_handle_standard_args(Cargo
     FAIL_MESSAGE
         "Failed to locate cargo executable")
 
-if(Cargo_FOUND)
+if (Cargo_FOUND)
     get_property(_Cargo_CMAKE_ROLE GLOBAL PROPERTY CMAKE_ROLE)
-    if(_Cargo_CMAKE_ROLE STREQUAL "PROJECT")
-        if(NOT TARGET Cargo::Cargo)
+    if (_Cargo_CMAKE_ROLE STREQUAL "PROJECT")
+        if (NOT TARGET Cargo::Cargo)
             add_executable(Cargo::Cargo IMPORTED)
             set_target_properties(Cargo::Cargo PROPERTIES
                 IMPORTED_LOCATION "${Cargo_EXECUTABLE}")

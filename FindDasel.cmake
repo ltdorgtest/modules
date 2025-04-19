@@ -59,7 +59,7 @@ find_program(Dasel_EXECUTABLE
     PATHS ${_Dasel_SEARCH_PATHS}
     DOC "The full path to the dasel executable.")
 
-if(Dasel_EXECUTABLE)
+if (Dasel_EXECUTABLE)
     execute_process(
         COMMAND "${Dasel_EXECUTABLE}" --version
         OUTPUT_VARIABLE _DASEL_VERSION_OUTPUT
@@ -84,10 +84,10 @@ find_package_handle_standard_args(Dasel
     FAIL_MESSAGE
         "Failed to locate dasel executable")
 
-if(Dasel_FOUND)
+if (Dasel_FOUND)
     get_property(_Dasel_CMAKE_ROLE GLOBAL PROPERTY CMAKE_ROLE)
-    if(_Dasel_CMAKE_ROLE STREQUAL "PROJECT")
-        if(NOT TARGET Dasel::Dasel)
+    if (_Dasel_CMAKE_ROLE STREQUAL "PROJECT")
+        if (NOT TARGET Dasel::Dasel)
             add_executable(Dasel::Dasel IMPORTED)
             set_target_properties(Dasel::Dasel PROPERTIES
                 IMPORTED_LOCATION "${Dasel_EXECUTABLE}")

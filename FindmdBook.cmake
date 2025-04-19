@@ -60,7 +60,7 @@ find_program(mdBook_EXECUTABLE
     PATHS ${_mdBook_SEARCH_PATHS}
     DOC "The full path to the mdbook executable.")
 
-if(mdBook_EXECUTABLE)
+if (mdBook_EXECUTABLE)
     execute_process(
         COMMAND "${mdBook_EXECUTABLE}" --version
         OUTPUT_VARIABLE _MDBOOK_VERSION_OUTPUT
@@ -85,10 +85,10 @@ find_package_handle_standard_args(mdBook
     FAIL_MESSAGE
         "Failed to locate mdbook executable")
 
-if(mdBook_FOUND)
+if (mdBook_FOUND)
     get_property(_mdBook_CMAKE_ROLE GLOBAL PROPERTY CMAKE_ROLE)
-    if(_mdBook_CMAKE_ROLE STREQUAL "PROJECT")
-        if(NOT TARGET mdBook::mdBook)
+    if (_mdBook_CMAKE_ROLE STREQUAL "PROJECT")
+        if (NOT TARGET mdBook::mdBook)
             add_executable(mdBook::mdBook IMPORTED)
             set_target_properties(mdBook::mdBook PROPERTIES
                 IMPORTED_LOCATION "${mdBook_EXECUTABLE}")
