@@ -1,7 +1,7 @@
 # Distributed under the OSI-approved BSD 3-Clause License.
 # See accompanying file LICENSE.txt for details.
 
-#[=================================================================================[.rst:
+#[================================================================================[.rst:
 FindGit
 -------
 
@@ -42,7 +42,7 @@ Hints
 ``Git_ROOT_DIR``, ``ENV{Git_ROOT_DIR}``
   Define the root directory of a Git installation.
 
-#]=================================================================================]
+#]================================================================================]
 
 set(_Git_SEARCH_HINTS
     ${Git_ROOT_DIR}

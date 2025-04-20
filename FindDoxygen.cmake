@@ -1,7 +1,7 @@
 # Distributed under the OSI-approved BSD 3-Clause License.
 # See accompanying file LICENSE.txt for details.
 
-#[=================================================================================[.rst:
+#[================================================================================[.rst:
 FindDoxygen
 -----------
 
@@ -44,7 +44,7 @@ Hints
 ``Doxygen_ROOT_DIR``, ``ENV{Doxygen_ROOT_DIR}``
   Define the root directory of a Doxygen installation.
 
-#]=================================================================================]
+#]================================================================================]
 
 set(_Doxygen_PATH_SUFFIXES bin)
 

@@ -1,9 +1,9 @@
 # Distributed under the OSI-approved BSD 3-Clause License.
 # See accompanying file LICENSE.txt for details.
 
-#[============================================================[.rst
-GitUtilities
-------------
+#[================================================================================[.rst
+GitUtils
+--------
 
 .. command:: get_git_latest_branch_on_branch_pattern
 
@@ -57,7 +57,7 @@ GitUtilities
         IN_LOCAL_PATH        "${PROJ_SOURCE_DIR}"
         IN_WORKTREE_PATH    "${PROJ_L10N_DIR}")
 
-#]============================================================]
+#]================================================================================]
 
 
 include_guard()

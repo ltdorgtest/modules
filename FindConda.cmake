@@ -1,7 +1,7 @@
 # Distributed under the OSI-approved BSD 3-Clause License.
 # See accompanying file LICENSE.txt for details.
 
-#[=================================================================================[.rst:
+#[================================================================================[.rst:
 FindConda
 -----------
 
@@ -42,7 +42,7 @@ Hints
 ``Conda_ROOT_DIR``, ``ENV{Conda_ROOT_DIR}``
   Define the root directory of a Conda installation.
 
-#]=================================================================================]
+#]================================================================================]
 
 if (CMAKE_HOST_WIN32)
     set(_CONDA_NAME "conda.bat;conda.exe")

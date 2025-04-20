@@ -1,7 +1,7 @@
 # Distributed under the OSI-approved BSD 3-Clause License.
 # See accompanying file LICENSE.txt for details.
 
-#[=======================================================================[.rst:
+#[================================================================================[.rst:
 FindmdBook
 ----------
 
@@ -42,7 +42,7 @@ Hints
 ``mdBook_ROOT_DIR``, ``ENV{mdBook_ROOT_DIR}``
   Define the root directory of a mdBook installation.
 
-#]=======================================================================]
+#]================================================================================]
 
 set(_mdBook_PATH_SUFFIXES bin)
 

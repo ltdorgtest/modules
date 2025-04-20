@@ -1,7 +1,7 @@
 # Distributed under the OSI-approved BSD 3-Clause License.
 # See accompanying file LICENSE.txt for details.
 
-#[=======================================================================[.rst:
+#[================================================================================[.rst:
 FindCargo
 ---------
 
@@ -42,7 +42,7 @@ Hints
 ``Cargo_ROOT_DIR``, ``ENV{Cargo_ROOT_DIR}``
   Define the root directory of a Cargo installation.
 
-#]=======================================================================]
+#]================================================================================]
 
 set(_Cargo_PATH_SUFFIXES bin)
 

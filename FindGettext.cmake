@@ -1,7 +1,7 @@
 # Distributed under the OSI-approved BSD 3-Clause License.
 # See accompanying file LICENSE.txt for details.
 
-#[=================================================================================[.rst:
+#[================================================================================[.rst:
 FindGettext
 -----------
 
@@ -125,7 +125,7 @@ Hints
 ``Gettext_ROOT_DIR``, ``ENV{Gettext_ROOT_DIR}``
   Define the root directory of a Gettext installation.
 
-#]=================================================================================]
+#]================================================================================]
 
 set(_Gettext_KNOWN_COMPONENTS
     Xgettext

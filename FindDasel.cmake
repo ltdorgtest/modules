@@ -1,7 +1,7 @@
 # Distributed under the OSI-approved BSD 3-Clause License.
 # See accompanying file LICENSE.txt for details.
 
-#[=======================================================================[.rst:
+#[================================================================================[.rst:
 FindDasel
 ---------
 
@@ -42,7 +42,7 @@ Hints
 ``Dasel_ROOT_DIR``, ``ENV{Dasel_ROOT_DIR}``
   Define the root directory of a Dasel installation.
 
-#]=======================================================================]
+#]================================================================================]
 
 set(_Dasel_PATH_SUFFIXES bin)
 
