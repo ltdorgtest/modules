@@ -152,15 +152,25 @@ if (Sphinx_BUILD_EXECUTABLE)
         set(Sphinx_VERSION_MINOR "${CMAKE_MATCH_2}")
         set(Sphinx_VERSION_PATCH "${CMAKE_MATCH_3}")
     elseif (_Sphinx_VERSION_RESULT EQUAL 1)
-        # For Sphinx < 1.2.3
         string(REGEX MATCH "([0-9]+)\\.([0-9]+)\\.([0-9]+)" Sphinx_VERSION ${_Sphinx_VERSION_ERROR})
-        set(Sphinx_VERSION_MAJOR "${CMAKE_MATCH_1}")
-        set(Sphinx_VERSION_MINOR "${CMAKE_MATCH_2}")
-        set(Sphinx_VERSION_PATCH "${CMAKE_MATCH_3}")
+        if (Sphinx_VERSION)
+            # For Sphinx < 1.2.3
+            set(Sphinx_VERSION_MAJOR "${CMAKE_MATCH_1}")
+            set(Sphinx_VERSION_MINOR "${CMAKE_MATCH_2}")
+            set(Sphinx_VERSION_PATCH "${CMAKE_MATCH_3}")
+        else()
+            string(APPEND _Sphinx_FAILURE_REASON
+            "The command\n"
+            "    \"${Sphinx_BUILD_EXECUTABLE}\" --version\n"
+            "failed with fatal errors.\n"
+            "    result:\n${_Sphinx_VERSION_RESULT}\n"
+            "    stdout:\n${_Sphinx_VERSION_OUTPUT}\n"
+            "    stderr:\n${_Sphinx_VERSION_ERROR}")
+        endif()
     else()
         string(APPEND _Sphinx_FAILURE_REASON
         "The command\n"
-        "    \"${Sphinx_EXECUTABLE}\" --version\n"
+        "    \"${Sphinx_BUILD_EXECUTABLE}\" --version\n"
         "failed with fatal errors.\n"
         "    result:\n${_Sphinx_VERSION_RESULT}\n"
         "    stdout:\n${_Sphinx_VERSION_OUTPUT}\n"
