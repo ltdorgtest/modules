@@ -381,13 +381,13 @@ function(update_po_from_pot_in_locale)
 endfunction()
 
 
-function(concat_po_from_locale_to_compendium)
+function(concat_po_from_locale_to_single)
     #
     # Parse arguments.
     #
     set(OPTIONS)
     set(ONE_VALUE_ARGS      IN_LOCALE_PO_DIR
-                            IN_COMPEND_PO_FILE
+                            IN_SINGLE_PO_FILE
                             IN_WRAP_WIDTH)
     set(MULTI_VALUE_ARGS)
     cmake_parse_arguments(CPFLTC
@@ -399,7 +399,7 @@ function(concat_po_from_locale_to_compendium)
     # Ensure all required arguments are provided.
     #
     set(REQUIRED_ARGS       IN_LOCALE_PO_DIR
-                            IN_COMPEND_PO_FILE
+                            IN_SINGLE_PO_FILE
                             IN_WRAP_WIDTH)
     foreach(ARG ${REQUIRED_ARGS})
         if (NOT DEFINED CPFLTC_${ARG})
@@ -416,12 +416,12 @@ function(concat_po_from_locale_to_compendium)
     # Concatenate all .po files from the locale directory into a single compendium file.
     #
     file(GLOB_RECURSE LOCALE_PO_FILES "${CPFLTC_IN_LOCALE_PO_DIR}/*.po")
-    get_filename_component(COMPENDIUM_PO_DIR "${CPFLTC_IN_COMPEND_PO_FILE}" DIRECTORY)
-    file(MAKE_DIRECTORY "${COMPENDIUM_PO_DIR}")
+    get_filename_component(SINGLE_PO_DIR "${CPFLTC_IN_SINGLE_PO_FILE}" DIRECTORY)
+    file(MAKE_DIRECTORY "${SINGLE_PO_DIR}")
     message("msgcat:")
     message("  --width=${CPFLTC_IN_WRAP_WIDTH}")
     message("  --use-first")
-    message("  --output-file ${CPFLTC_IN_COMPEND_PO_FILE}")
+    message("  --output-file ${CPFLTC_IN_SINGLE_PO_FILE}")
     foreach(LOCALE_PO_FILE ${LOCALE_PO_FILES})
     message("  ${LOCALE_PO_FILE}")
     endforeach()
@@ -429,7 +429,7 @@ function(concat_po_from_locale_to_compendium)
         COMMAND ${Gettext_MSGCAT_EXECUTABLE}
                 --width=${CPFLTC_IN_WRAP_WIDTH}
                 --use-first
-                --output-file=${CPFLTC_IN_COMPEND_PO_FILE}
+                --output-file=${CPFLTC_IN_SINGLE_PO_FILE}
                 ${LOCALE_PO_FILES}
         RESULT_VARIABLE RES_VAR
         OUTPUT_VARIABLE OUT_VAR OUTPUT_STRIP_TRAILING_WHITESPACE
@@ -446,13 +446,13 @@ function(concat_po_from_locale_to_compendium)
 endfunction()
 
 
-function(merge_po_from_src_to_dst_with_compendium)
+function(merge_po_with_compendium_from_src_to_dst)
     #
     # Parse arguments.
     #
     set(OPTIONS)
     set(ONE_VALUE_ARGS      IN_SRC_LOCALE_PO_DIR
-                            IN_SRC_COMPEND_PO_FILE
+                            IN_SRC_SINGLE_PO_FILE
                             IN_DST_LOCALE_PO_DIR
                             IN_DST_LOCALE_POT_DIR
                             IN_LANGUAGE
@@ -466,7 +466,7 @@ function(merge_po_from_src_to_dst_with_compendium)
     #
     # Ensure all required arguments are provided.
     #
-    set(REQUIRED_ARGS       IN_SRC_COMPEND_PO_FILE
+    set(REQUIRED_ARGS       IN_SRC_SINGLE_PO_FILE
                             IN_DST_LOCALE_PO_DIR
                             IN_DST_LOCALE_POT_DIR
                             IN_LANGUAGE
@@ -498,15 +498,15 @@ function(merge_po_from_src_to_dst_with_compendium)
         set(DST_LOCALE_PO_FILE      "${MPFSDC_IN_DST_LOCALE_PO_DIR}/${PO_FILE_RELATIVE}")
         set(DST_LOCALE_POT_FILE     "${MPFSDC_IN_DST_LOCALE_POT_DIR}/${POT_FILE_RELATIVE}")
         if (EXISTS "${SRC_LOCALE_PO_FILE}")
-        set(SRC_COMPEND_PO_FILE     "${SRC_LOCALE_PO_FILE}")
+        set(SRC_COMPENDIUM_FILE     "${SRC_LOCALE_PO_FILE}")
         else()
-        set(SRC_COMPEND_PO_FILE     "${MPFSDC_IN_SRC_COMPEND_PO_FILE}")
+        set(SRC_COMPENDIUM_FILE     "${MPFSDC_IN_SRC_SINGLE_PO_FILE}")
         endif()
         message("msgmerge:")
         message("  --quiet")
         message("  --lang           ${MPFSDC_IN_LANGUAGE}")
         message("  --width          ${MPFSDC_IN_WRAP_WIDTH}")
-        message("  --compendium     ${SRC_COMPEND_PO_FILE}")
+        message("  --compendium     ${SRC_COMPENDIUM_FILE}")
         message("  --output-file    ${DST_LOCALE_PO_FILE}")
         message("  [def.po]         ${DST_LOCALE_POT_FILE}")
         message("  [ref.pot]        ${DST_LOCALE_POT_FILE}")
@@ -515,7 +515,7 @@ function(merge_po_from_src_to_dst_with_compendium)
                     --quiet   # Suppress progress indicator
                     --lang=${MPFSDC_IN_LANGUAGE}
                     --width=${MPFSDC_IN_WRAP_WIDTH}
-                    --compendium=${SRC_COMPEND_PO_FILE}
+                    --compendium=${SRC_COMPENDIUM_FILE}
                     --output-file=${DST_LOCALE_PO_FILE}
                     ${DST_LOCALE_POT_FILE}  # [def.po]
                     ${DST_LOCALE_POT_FILE}  # [ref.pot]
