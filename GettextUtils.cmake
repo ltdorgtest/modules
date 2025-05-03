@@ -543,7 +543,7 @@ function(merge_po_with_compendium_from_src_to_dst)
 endfunction()
 
 
-function(caculate_statistic_info_of_gettext)
+function(caculate_statistics_of_gettext)
     #
     # Parse arguments.
     #
