@@ -55,9 +55,9 @@ set(_Crowdin_SEARCH_HINTS
     ENV Crowdin_ROOT_DIR
     ENV CROWDIN_HOME)
 
-set(_Crowdin_SEARCH_PATHS)
+set(_Crowdin_SEARCH_PATHS "")
 
-set(_Crowdin_FAILURE_REASON)
+set(_Crowdin_FAILURE_REASON "")
 
 find_program(Crowdin_EXECUTABLE
     NAMES ${_CROWDIN_NAME}
@@ -134,3 +134,4 @@ endif()
 
 unset(_Crowdin_SEARCH_HINTS)
 unset(_Crowdin_SEARCH_PATHS)
+unset(_Crowdin_FAILURE_REASON)

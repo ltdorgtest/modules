@@ -51,7 +51,9 @@ set(_Cargo_SEARCH_HINTS
     ENV Cargo_ROOT_DIR
     ENV CARGO_HOME)
 
-set(_Cargo_SEARCH_PATHS)
+set(_Cargo_SEARCH_PATHS "")
+
+set(_Cargo_FAILURE_REASON "")
 
 find_program(Cargo_EXECUTABLE
     NAMES cargo
@@ -94,7 +96,7 @@ find_package_handle_standard_args(Cargo
     FOUND_VAR
         Cargo_FOUND
     FAIL_MESSAGE
-        "Failed to locate cargo executable")
+        "${_Cargo_FAILURE_REASON}")
 
 if (Cargo_FOUND)
     get_property(_Cargo_CMAKE_ROLE GLOBAL PROPERTY CMAKE_ROLE)
@@ -108,5 +110,7 @@ if (Cargo_FOUND)
     unset(_Cargo_CMAKE_ROLE)
 endif()
 
+unset(_Cargo_PATH_SUFFIXES)
 unset(_Cargo_SEARCH_HINTS)
 unset(_Cargo_SEARCH_PATHS)
+unset(_Cargo_FAILURE_REASON)

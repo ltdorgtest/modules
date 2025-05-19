@@ -118,3 +118,4 @@ endif()
 
 unset(_Conda_SEARCH_HINTS)
 unset(_Conda_SEARCH_PATHS)
+unset(_Conda_FAILURE_REASON)

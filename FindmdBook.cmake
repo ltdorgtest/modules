@@ -51,7 +51,9 @@ set(_mdBook_SEARCH_HINTS
     ENV mdBook_ROOT_DIR
     ENV CARGO_HOME)
 
-set(_mdBook_SEARCH_PATHS)
+set(_mdBook_SEARCH_PATHS "")
+
+set(_mdBook_FAILURE_REASON "")
 
 find_program(mdBook_EXECUTABLE
     NAMES mdbook
@@ -89,12 +91,13 @@ include(FindPackageHandleStandardArgs)
 find_package_handle_standard_args(mdBook
     REQUIRED_VARS
         mdBook_EXECUTABLE
+        mdBook_VERSION
     VERSION_VAR
         mdBook_VERSION
     FOUND_VAR
         mdBook_FOUND
     FAIL_MESSAGE
-        "Failed to locate mdbook executable")
+        "${_mdBook_FAILURE_REASON}")
 
 if (mdBook_FOUND)
     get_property(_mdBook_CMAKE_ROLE GLOBAL PROPERTY CMAKE_ROLE)
@@ -108,5 +111,7 @@ if (mdBook_FOUND)
     unset(_mdBook_CMAKE_ROLE)
 endif()
 
+unset(_mdBook_PATH_SUFFIXES)
 unset(_mdBook_SEARCH_HINTS)
 unset(_mdBook_SEARCH_PATHS)
+unset(_mdBook_FAILURE_REASON)

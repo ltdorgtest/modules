@@ -50,7 +50,9 @@ set(_Dasel_SEARCH_HINTS
     ${Dasel_ROOT_DIR}
     ENV Dasel_ROOT_DIR)
 
-set(_Dasel_SEARCH_PATHS)
+set(_Dasel_SEARCH_PATHS "")
+
+set(_Dasel_FAILURE_REASON "")
 
 find_program(Dasel_EXECUTABLE
     NAMES dasel
@@ -88,12 +90,13 @@ include(FindPackageHandleStandardArgs)
 find_package_handle_standard_args(Dasel
     REQUIRED_VARS
         Dasel_EXECUTABLE
+        Dasel_VERSION
     VERSION_VAR
         Dasel_VERSION
     FOUND_VAR
         Dasel_FOUND
     FAIL_MESSAGE
-        "Failed to locate dasel executable")
+        "${_Dasel_FAILURE_REASON}")
 
 if (Dasel_FOUND)
     get_property(_Dasel_CMAKE_ROLE GLOBAL PROPERTY CMAKE_ROLE)
