@@ -97,7 +97,8 @@ find_package_handle_standard_args(mdBook
     FOUND_VAR
         mdBook_FOUND
     FAIL_MESSAGE
-        "${_mdBook_FAILURE_REASON}")
+        "${_mdBook_FAILURE_REASON}"
+    HANDLE_VERSION_RANGE)
 
 if (mdBook_FOUND)
     get_property(_mdBook_CMAKE_ROLE GLOBAL PROPERTY CMAKE_ROLE)

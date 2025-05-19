@@ -96,7 +96,8 @@ find_package_handle_standard_args(Cargo
     FOUND_VAR
         Cargo_FOUND
     FAIL_MESSAGE
-        "${_Cargo_FAILURE_REASON}")
+        "${_Cargo_FAILURE_REASON}"
+    HANDLE_VERSION_RANGE)
 
 if (Cargo_FOUND)
     get_property(_Cargo_CMAKE_ROLE GLOBAL PROPERTY CMAKE_ROLE)

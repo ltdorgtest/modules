@@ -96,7 +96,8 @@ find_package_handle_standard_args(Dasel
     FOUND_VAR
         Dasel_FOUND
     FAIL_MESSAGE
-        "${_Dasel_FAILURE_REASON}")
+        "${_Dasel_FAILURE_REASON}"
+    HANDLE_VERSION_RANGE)
 
 if (Dasel_FOUND)
     get_property(_Dasel_CMAKE_ROLE GLOBAL PROPERTY CMAKE_ROLE)
