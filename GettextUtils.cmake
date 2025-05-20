@@ -627,7 +627,7 @@ function(caculate_statistics_of_gettext)
             message(FATAL_ERROR "${FAILURE_REASON}")
         endif()
         #
-        # Calculate the "translated" msgid entries
+        # Calculate the "translated" msgid entries.
         #
         execute_process(
             COMMAND ${Gettext_MSGATTRIB_EXECUTABLE} --translated ${PO_FILE}
@@ -683,7 +683,7 @@ function(caculate_statistics_of_gettext)
         if (NOT TOTAL_MSGID_RES AND NOT TRANSLATED_MSGID_RES)
             math(EXPR TRANSLATED_MSGID_PCT "100 * ${TRANSLATED_MSGID_COUNT} / ${TOTAL_MSGID_COUNT}")
             #
-            # Prepend leading whitespaces to the 'PERCENTAGE_STR' until its length is ${CSIOG_IN_PADDING_LENGTH}
+            # Prepend leading whitespaces to the 'PERCENTAGE_STR' until its length is ${CSIOG_IN_PADDING_LENGTH}.
             #
             set(PERCENTAGE_STR "${TRANSLATED_MSGID_PCT}")
             string(LENGTH "${PERCENTAGE_STR}" PERCENTAGE_LEN)
@@ -692,7 +692,7 @@ function(caculate_statistics_of_gettext)
                 string(LENGTH "${PERCENTAGE_STR}" PERCENTAGE_LEN)
             endwhile()
             #
-            # Prepend leading whitespaces to the 'TRANSLATED_MSGID_STR' until its length is ${CSIOG_IN_PADDING_LENGTH}
+            # Prepend leading whitespaces to the 'TRANSLATED_MSGID_STR' until its length is ${CSIOG_IN_PADDING_LENGTH}.
             #
             set(TRANSLATED_MSGID_STR "${TRANSLATED_MSGID_COUNT}")
             string(LENGTH "${TRANSLATED_MSGID_STR}" TRANSLATED_MSGID_LEN)
@@ -701,7 +701,7 @@ function(caculate_statistics_of_gettext)
                 string(LENGTH "${TRANSLATED_MSGID_STR}" TRANSLATED_MSGID_LEN)
             endwhile()
             #
-            # Prepend leading whitespaces to the 'TOTAL_MSGID_STR' until its length is ${CSIOG_IN_PADDING_LENGTH}
+            # Prepend leading whitespaces to the 'TOTAL_MSGID_STR' until its length is ${CSIOG_IN_PADDING_LENGTH}.
             #
             set(TOTAL_MSGID_STR "${TOTAL_MSGID_COUNT}")
             string(LENGTH "${TOTAL_MSGID_STR}" TOTAL_MSGID_LEN)
