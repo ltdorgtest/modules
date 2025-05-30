@@ -15,44 +15,44 @@ Initialize a references.json file
   .. code-block:: cmake
 
     init_references_json_file(
-        IN_FILEPATH   "${CMAKE_CURRENT_LIST_DIR}/references.json"
-        IN_VERSION    "master"
-        IN_VERSION_TYPE       "branch"
-        IN_MODE       "language"
-        IN_LANGUAGE   "zh_CN;zh_TW")
+        IN_FILEPATH       "${CMAKE_CURRENT_LIST_DIR}/references.json"
+        IN_VERSION_TYPE   "branch"
+        IN_VERSION        "master"
+        IN_INIT_MODE      "language"
+        IN_INIT_LIST      "zh_CN;zh_TW")
 
   Initialize a `references.json` file of `tag` type in `language` mode:
 
   .. code-block:: cmake
 
     init_references_json_file(
-        IN_FILEPATH   "${CMAKE_CURRENT_LIST_DIR}/references.json"
-        IN_VERSION    "master"
-        IN_VERSION_TYPE       "tag"
-        IN_MODE       "language"
-        IN_LANGUAGE   "zh_CN;zh_TW")
+        IN_FILEPATH       "${CMAKE_CURRENT_LIST_DIR}/references.json"
+        IN_VERSION_TYPE   "tag"
+        IN_VERSION        "master"
+        IN_INIT_MODE      "language"
+        IN_INIT_LIST      "zh_CN;zh_TW")
 
   Initialize a `references.json` file of `branch` type in `repository` mode:
 
   .. code-block:: cmake
 
     init_references_json_file(
-        IN_FILEPATH   "${CMAKE_CURRENT_LIST_DIR}/references.json"
-        IN_VERSION    "develop2"
-        IN_VERSION_TYPE       "branch"
-        IN_MODE       "repository"
-        IN_REPOSITORY "conan")
+        IN_FILEPATH       "${CMAKE_CURRENT_LIST_DIR}/references.json"
+        IN_VERSION_TYPE   "branch"
+        IN_VERSION        "develop2"
+        IN_INIT_MODE      "repository"
+        IN_INIT_LIST      "conan")
 
   Initialize a `references.json` file of `tag` type in `repository` mode:
 
   .. code-block:: cmake
 
     init_references_json_file(
-        IN_FILEPATH   "${CMAKE_CURRENT_LIST_DIR}/references.json"
-        IN_VERSION    "develop2"
-        IN_VERSION_TYPE       "tag"
-        IN_MODE       "repository"
-        IN_REPOSITORY "conan")
+        IN_FILEPATH       "${CMAKE_CURRENT_LIST_DIR}/references.json"
+        IN_VERSION_TYPE   "tag"
+        IN_VERSION        "develop2"
+        IN_INIT_MODE      "repository"
+        IN_INIT_LIST      "conan")
 
 Get Members of Json Object
 ^^^^^^^^^^^^^^^^^^^^^^^^^^
@@ -182,20 +182,17 @@ include(GitUtils)
 # :keyword  IN_FILEPATH: (Required)
 # :type     IN_FILEPATH: json
 #
-# :keyword  IN_VERSION: (Required)
-# :type     IN_VERSION: string
-#
 # :keyword  IN_VERSION_TYPE: (Required)
 # :type     IN_VERSION_TYPE: string
 #
-# :keyword  IN_MODE: (Required)
-# :type     IN_MODE: string
+# :keyword  IN_VERSION: (Required)
+# :type     IN_VERSION: string
 #
-# :keyword  IN_LANGUAGE: (Required if IN_MODE is "language")
-# :type     IN_LANGUAGE: string
+# :keyword  IN_INIT_MODE: (Required)
+# :type     IN_INIT_MODE: string
 #
-# :keyword  IN_REPOSITORY: (Required if IN_MODE is "repository")
-# :type     IN_REPOSITORY: string
+# :keyword  IN_INIT_LIST: (Required)
+# :type     IN_INIT_LIST: string
 #]]
 function(init_references_json_file)
     #
@@ -203,11 +200,10 @@ function(init_references_json_file)
     #
     set(OPTIONS)
     set(ONE_VALUE_ARGS      IN_FILEPATH
-                            IN_VERSION
                             IN_VERSION_TYPE
-                            IN_MODE)
-    set(MULTI_VALUE_ARGS    IN_LANGUAGE
-                            IN_REPOSITORY)
+                            IN_VERSION
+                            IN_INIT_MODE)
+    set(MULTI_VALUE_ARGS    IN_INIT_LIST)
     cmake_parse_arguments(IRJF
         "${OPTIONS}"
         "${ONE_VALUE_ARGS}"
@@ -216,21 +212,11 @@ function(init_references_json_file)
     #
     # Ensure all required arguments are provided.
     #
-    if (IRJF_IN_MODE STREQUAL "language")
-        set(REQUIRED_ARGS   IN_FILEPATH
-                            IN_VERSION
+    set(REQUIRED_ARGS       IN_FILEPATH
                             IN_VERSION_TYPE
-                            IN_MODE
-                            IN_LANGUAGE)
-    elseif(IRJF_IN_MODE STREQUAL "repository")
-        set(REQUIRED_ARGS   IN_FILEPATH
                             IN_VERSION
-                            IN_VERSION_TYPE
-                            IN_MODE
-                            IN_REPOSITORY)
-    else()
-        message(FATAL_ERROR "Missing/Invalid IRJF_${_ARG} argument.")
-    endif()
+                            IN_INIT_MODE
+                            IN_INIT_LIST)
     foreach(_ARG ${REQUIRED_ARGS})
         if (NOT DEFINED IRJF_${_ARG})
             message(FATAL_ERROR "Missing IRJF_${_ARG} argument.")
@@ -259,23 +245,23 @@ function(init_references_json_file)
     #
     string(JSON JSON_CNT SET "${JSON_CNT}" "type" "\"${IRJF_IN_VERSION_TYPE}\"")
     #
-    # Call internal initialization functions based on IN_VERSION_TYPE and IN_MODE.
+    # Call internal initialization functions based on IN_VERSION_TYPE and IN_INIT_MODE.
     #
     if (IRJF_IN_VERSION_TYPE STREQUAL "tag")
-        if (IRJF_IN_MODE STREQUAL "language")
+        if (IRJF_IN_INIT_MODE STREQUAL "language")
             _init_references_json_file_for_tag_language()
-        elseif(IRJF_IN_MODE STREQUAL "repository")
+        elseif(IRJF_IN_INIT_MODE STREQUAL "repository")
             _init_references_json_file_for_tag_repository()
         else()
-            message(FATAL_ERROR "Invalid IRJF_IN_MODE argument. (${IRJF_IN_MODE})")
+            message(FATAL_ERROR "Invalid IRJF_IN_INIT_MODE argument. (${IRJF_IN_INIT_MODE})")
         endif()
-    elseif(IRJF_IN_VERSION_TYPE STREQUAL "branch")
-        if (IRJF_IN_MODE STREQUAL "language")
+    elseif (IRJF_IN_VERSION_TYPE STREQUAL "branch")
+        if (IRJF_IN_INIT_MODE STREQUAL "language")
             _init_references_json_file_for_branch_language()
-        elseif(IRJF_IN_MODE STREQUAL "repository")
+        elseif(IRJF_IN_INIT_MODE STREQUAL "repository")
             _init_references_json_file_for_branch_repository()
         else()
-            message(FATAL_ERROR "Invalid IRJF_IN_MODE argument. (${IRJF_IN_MODE})")
+            message(FATAL_ERROR "Invalid IRJF_IN_INIT_MODE argument. (${IRJF_IN_INIT_MODE})")
         endif()
     else()
         message(FATAL_ERROR "Invalid IRJF_IN_VERSION_TYPE argument. (${IRJF_IN_VERSION_TYPE})")
@@ -296,7 +282,7 @@ macro(_init_references_json_file_for_tag_language)
     # (2.1) Initialize '.po.${_LANG}' objects as empty if missing.
     # (2.2) Initialize '.po.${_LANG}.${REF_PROP_NAME}' property as empty if missing.
     #
-    set(LANG_LIST "${IRJF_IN_LANGUAGE}")
+    set(LANG_LIST "${IRJF_IN_INIT_LIST}")
     set(REF_PROP_NAME_LIST tag)
     set(REF_PROP_TYPE_LIST STRING)
     #
@@ -372,7 +358,7 @@ macro(_init_references_json_file_for_tag_repository)
     # (1)   Initialize '.${_REPO}' property as empty if missing.
     # (1.1) Initialize '.${_REPO}.${REF_PROP_NAME}' property as empty if missing.
     #
-    set(REPO_LIST ${IRJF_IN_REPOSITORY})
+    set(REPO_LIST ${IRJF_IN_INIT_LIST})
     set(REF_PROP_NAME_LIST tag)
     set(REF_PROP_TYPE_LIST STRING)
     foreach(_REPO ${REPO_LIST})
@@ -418,7 +404,7 @@ macro(_init_references_json_file_for_branch_language)
     # (2.2) Initialize '..po.${_LANG}.${REF_PROP_NAME}' property as empty if missing.
     # (2.3) Initialize '..po.${_LANG}.commit.${COMMIT_PROP_NAME}' property as empty if missing.
     #
-    set(LANG_LIST "${IRJF_IN_LANGUAGE}")
+    set(LANG_LIST "${IRJF_IN_INIT_LIST}")
     set(REF_PROP_NAME_LIST branch commit)
     set(REF_PROP_TYPE_LIST STRING OBJECT)
     set(COMMIT_PROP_NAME_LIST date hash title)
@@ -542,7 +528,7 @@ macro(_init_references_json_file_for_branch_repository)
     # (1.1) Initialize '.${_REPO}.${REF_PROP_NAME}' property as empty if missing.
     # (1.2) Initialize '.${_REPO}.commit.${COMMIT_PROP_NAME}' property as empty if missing.
     #
-    set(REPO_LIST "${IRJF_IN_REPOSITORY}")
+    set(REPO_LIST "${IRJF_IN_INIT_LIST}")
     set(REF_PROP_NAME_LIST branch commit)
     set(REF_PROP_TYPE_LIST STRING OBJECT)
     set(COMMIT_PROP_NAME_LIST date hash title)
@@ -1064,49 +1050,48 @@ endfunction()
 #
 # **Keyword Arguments**
 #
+# :type     IN_JSON_CNT: string
 # :keyword  IN_JSON_CNT: (Required)
 #           Input JSON content as a string containing the current reference information.
-# :type     IN_JSON_CNT: string
 #
+# :type     IN_LOCAL_PATH: string
 # :keyword  IN_LOCAL_PATH: (Required)
 #           Path to the local repository to retrieve the latest reference.
-# :type     IN_LOCAL_PATH: string
 #
+# :type     IN_DOT_NOTATION: string
 # :keyword  IN_DOT_NOTATION: (Required)
 #           Dot notation path used to extract the current reference from the input JSON content.
-# :type     IN_DOT_NOTATION: string
 #
-# :keyword  IN_VERSION_TYPE: (Required)
 # :type     IN_VERSION_TYPE: string
+# :keyword  IN_VERSION_TYPE: (Required)
 #
+# :type     IN_BRANCH_NAME: string
 # :keyword  IN_BRANCH_NAME: (Optional)
 #           Name of the branch to retrieve the latest commit.
-# :type     IN_BRANCH_NAME: string
 #
+# :type     IN_TAG_PATTERN: string
 # :keyword  IN_TAG_PATTERN: (Optional)
 #           Pattern to match tags for the latest tag retrieval.
-# :type     IN_TAG_PATTERN: string
 #
+# :type     IN_TAG_SUFFIX: string
 # :keyword  IN_TAG_SUFFIX: (Optional)
 #           Suffix to append to the tag name during tag matching.
-# :type     IN_TAG_SUFFIX: string
 #
+# :type     OUT_LATEST_OBJECT: string
 # :keyword  OUT_LATEST_OBJECT: (Optional)
 #           Variable to store the latest reference JSON object.
-# :type     OUT_LATEST_OBJECT: string
 #
+# :type     OUT_LATEST_REFERENCE: string
 # :keyword  OUT_LATEST_REFERENCE: (Optional)
 #           Variable to store the latest reference (branch or tag).
-# :type     OUT_LATEST_REFERENCE: string
 #
+# :type     OUT_CURRENT_OBJECT: string
 # :keyword  OUT_CURRENT_OBJECT: (Optional)
 #           Variable to store the current reference JSON object.
-# :type     OUT_CURRENT_OBJECT: string
 #
+# :type     OUT_CURRENT_REFERENCE: string
 # :keyword  OUT_CURRENT_REFERENCE: (Optional)
 #           Variable to store the current reference (branch or tag).
-# :type     OUT_CURRENT_REFERENCE: string
-#
 #]]
 function(get_reference_of_latest_from_repo_and_current_from_json)
     #
@@ -1213,23 +1198,23 @@ endfunction()
 #
 # **Keyword Arguments**
 #
-# :keyword  IN_JSON_CNT: (Required)
 # :type     IN_JSON_CNT: string
+# :keyword  IN_JSON_CNT: (Required)
 #
-# :keyword  IN_VERSION_TYPE: (Required)
 # :type     IN_VERSION_TYPE: string
+# :keyword  IN_VERSION_TYPE: (Required)
 #
-# :keyword  OUT_POT_OBJECT: (Optional)
 # :type     OUT_POT_OBJECT: string
+# :keyword  OUT_POT_OBJECT: (Optional)
 #
-# :keyword  OUT_POT_REFERENCE: (Optional)
 # :type     OUT_POT_REFERENCE: string
+# :keyword  OUT_POT_REFERENCE: (Optional)
 #
-# :keyword  OUT_PO_OBJECT: (Optional)
 # :type     OUT_PO_OBJECT: string
+# :keyword  OUT_PO_OBJECT: (Optional)
 #
-# :keyword  OUT_PO_REFERENCE: (Optional)
 # :type     OUT_PO_REFERENCE: string
+# :keyword  OUT_PO_REFERENCE: (Optional)
 #]]
 function(get_reference_of_pot_and_po_from_json)
     #
