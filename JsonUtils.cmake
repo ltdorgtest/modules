@@ -17,7 +17,7 @@ Initialize a references.json file
     init_references_json_file(
         IN_FILEPATH   "${CMAKE_CURRENT_LIST_DIR}/references.json"
         IN_VERSION    "master"
-        IN_TYPE       "branch"
+        IN_VERSION_TYPE       "branch"
         IN_MODE       "language"
         IN_LANGUAGE   "zh_CN;zh_TW")
 
@@ -28,7 +28,7 @@ Initialize a references.json file
     init_references_json_file(
         IN_FILEPATH   "${CMAKE_CURRENT_LIST_DIR}/references.json"
         IN_VERSION    "master"
-        IN_TYPE       "tag"
+        IN_VERSION_TYPE       "tag"
         IN_MODE       "language"
         IN_LANGUAGE   "zh_CN;zh_TW")
 
@@ -39,7 +39,7 @@ Initialize a references.json file
     init_references_json_file(
         IN_FILEPATH   "${CMAKE_CURRENT_LIST_DIR}/references.json"
         IN_VERSION    "develop2"
-        IN_TYPE       "branch"
+        IN_VERSION_TYPE       "branch"
         IN_MODE       "repository"
         IN_REPOSITORY "conan")
 
@@ -50,7 +50,7 @@ Initialize a references.json file
     init_references_json_file(
         IN_FILEPATH   "${CMAKE_CURRENT_LIST_DIR}/references.json"
         IN_VERSION    "develop2"
-        IN_TYPE       "tag"
+        IN_VERSION_TYPE       "tag"
         IN_MODE       "repository"
         IN_REPOSITORY "conan")
 
@@ -75,14 +75,14 @@ Set Members of Json Object for language and commit
   .. code-block:: cmake
 
     set_members_of_reference_json_object(
-        IN_TYPE             "tag"
+        IN_VERSION_TYPE     "tag"
         IN_MEMBER_TAG       "\"${repo_latest_tag}\""
         OUT_JSON_OBJECT     LANGUAGE_CNT)
 
   .. code-block:: cmake
 
     set_members_of_reference_json_object(
-        IN_TYPE             "branch"
+        IN_VERSION_TYPE     "branch"
         IN_MEMBER_BRANCH    "\"${IN_VERSION}\""
         IN_MEMBER_COMMIT    "${COMMIT_CNT}"
         OUT_JSON_OBJECT     LANGUAGE_CNT)
@@ -176,6 +176,26 @@ include(GitUtils)
 
 #[[[
 # Initialize a references.json file.
+#
+# **Keyword Arguments**
+#
+# :keyword  IN_FILEPATH: (Required)
+# :type     IN_FILEPATH: json
+#
+# :keyword  IN_VERSION: (Required)
+# :type     IN_VERSION: string
+#
+# :keyword  IN_VERSION_TYPE: (Required)
+# :type     IN_VERSION_TYPE: string
+#
+# :keyword  IN_MODE: (Required)
+# :type     IN_MODE: string
+#
+# :keyword  IN_LANGUAGE: (Required if IN_MODE is "language")
+# :type     IN_LANGUAGE: string
+#
+# :keyword  IN_REPOSITORY: (Required if IN_MODE is "repository")
+# :type     IN_REPOSITORY: string
 #]]
 function(init_references_json_file)
     #
@@ -184,7 +204,7 @@ function(init_references_json_file)
     set(OPTIONS)
     set(ONE_VALUE_ARGS      IN_FILEPATH
                             IN_VERSION
-                            IN_TYPE
+                            IN_VERSION_TYPE
                             IN_MODE)
     set(MULTI_VALUE_ARGS    IN_LANGUAGE
                             IN_REPOSITORY)
@@ -199,13 +219,13 @@ function(init_references_json_file)
     if (IRJF_IN_MODE STREQUAL "language")
         set(REQUIRED_ARGS   IN_FILEPATH
                             IN_VERSION
-                            IN_TYPE
+                            IN_VERSION_TYPE
                             IN_MODE
                             IN_LANGUAGE)
     elseif(IRJF_IN_MODE STREQUAL "repository")
         set(REQUIRED_ARGS   IN_FILEPATH
                             IN_VERSION
-                            IN_TYPE
+                            IN_VERSION_TYPE
                             IN_MODE
                             IN_REPOSITORY)
     else()
@@ -235,13 +255,13 @@ function(init_references_json_file)
     #
     string(JSON JSON_CNT SET "${JSON_CNT}" "version" "\"${IRJF_IN_VERSION}\"")
     #
-    # Initialize 'type' property based on ${IRJF_IN_TYPE}.
+    # Initialize 'type' property based on ${IRJF_IN_VERSION_TYPE}.
     #
-    string(JSON JSON_CNT SET "${JSON_CNT}" "type" "\"${IRJF_IN_TYPE}\"")
+    string(JSON JSON_CNT SET "${JSON_CNT}" "type" "\"${IRJF_IN_VERSION_TYPE}\"")
     #
-    # Call internal initialization functions based on IN_TYPE and IN_MODE.
+    # Call internal initialization functions based on IN_VERSION_TYPE and IN_MODE.
     #
-    if (IRJF_IN_TYPE STREQUAL "tag")
+    if (IRJF_IN_VERSION_TYPE STREQUAL "tag")
         if (IRJF_IN_MODE STREQUAL "language")
             _init_references_json_file_for_tag_language()
         elseif(IRJF_IN_MODE STREQUAL "repository")
@@ -249,7 +269,7 @@ function(init_references_json_file)
         else()
             message(FATAL_ERROR "Invalid IRJF_IN_MODE argument. (${IRJF_IN_MODE})")
         endif()
-    elseif(IRJF_IN_TYPE STREQUAL "branch")
+    elseif(IRJF_IN_VERSION_TYPE STREQUAL "branch")
         if (IRJF_IN_MODE STREQUAL "language")
             _init_references_json_file_for_branch_language()
         elseif(IRJF_IN_MODE STREQUAL "repository")
@@ -258,7 +278,7 @@ function(init_references_json_file)
             message(FATAL_ERROR "Invalid IRJF_IN_MODE argument. (${IRJF_IN_MODE})")
         endif()
     else()
-        message(FATAL_ERROR "Invalid IRJF_IN_TYPE argument. (${IRJF_IN_TYPE})")
+        message(FATAL_ERROR "Invalid IRJF_IN_VERSION_TYPE argument. (${IRJF_IN_VERSION_TYPE})")
     endif()
     #
     # Write the content of ${JSON_CNT} into ${_FILEPATH}.
@@ -584,6 +604,20 @@ endmacro()
 
 #[[[
 # Get members of JSON object.
+#
+# **Keyword Arguments**
+#
+# :keyword  IN_JSON_OBJECT: (Required)
+# :type     IN_JSON_OBJECT: json
+#
+# :keyword  OUT_MEMBER_NAMES: (Required)
+# :type     OUT_MEMBER_NAMES: string
+#
+# :keyword  OUT_MEMBER_VALUES: (Required)
+# :type     OUT_MEMBER_VALUES: string
+#
+# :keyword  OUT_MEMBER_NUMBER: (Required)
+# :type     OUT_MEMBER_NUMBER: string
 #]]
 function(get_members_of_json_object)
     #
@@ -650,7 +684,7 @@ endfunction()
 # :type     IN_MEMBER_TITLE: string
 #
 # :keyword  OUT_JSON_OBJECT: (Required)
-# :type     OUT_JSON_OBJECT: JSON object
+# :type     OUT_JSON_OBJECT: json
 #]]
 function(set_members_of_commit_json_object)
     #
@@ -699,7 +733,7 @@ function(set_members_of_reference_json_object)
     # Parse arguments.
     #
     set(OPTIONS)
-    set(ONE_VALUE_ARGS      IN_TYPE
+    set(ONE_VALUE_ARGS      IN_VERSION_TYPE
                             IN_MEMBER_BRANCH
                             IN_MEMBER_COMMIT
                             IN_MEMBER_TAG
@@ -713,17 +747,17 @@ function(set_members_of_reference_json_object)
     #
     # Ensure all required arguments are provided.
     #
-    if (SMORJO_IN_TYPE STREQUAL "tag")
-        set(REQUIRED_ARGS   IN_TYPE
+    if (SMORJO_IN_VERSION_TYPE STREQUAL "tag")
+        set(REQUIRED_ARGS   IN_VERSION_TYPE
                             IN_MEMBER_TAG
                             OUT_JSON_OBJECT)
-    elseif(SMORJO_IN_TYPE STREQUAL "branch")
-        set(REQUIRED_ARGS   IN_TYPE
+    elseif(SMORJO_IN_VERSION_TYPE STREQUAL "branch")
+        set(REQUIRED_ARGS   IN_VERSION_TYPE
                             IN_MEMBER_BRANCH
                             IN_MEMBER_COMMIT
                             OUT_JSON_OBJECT)
     else()
-        message(FATAL_ERROR "Missing/Invalid IRJF_IN_TYPE argument. (${SMORJO_IN_TYPE})")
+        message(FATAL_ERROR "Missing/Invalid IRJF_IN_VERSION_TYPE argument. (${SMORJO_IN_VERSION_TYPE})")
     endif()
     foreach(_ARG ${REQUIRED_ARGS})
         if (NOT DEFINED SMORJO_${_ARG})
@@ -732,10 +766,10 @@ function(set_members_of_reference_json_object)
     endforeach()
     unset(_ARG)
     #
-    # Construct JSON object for 'reference' based on ${SMORJO_IN_TYPE}.
+    # Construct JSON object for 'reference' based on ${SMORJO_IN_VERSION_TYPE}.
     #
     set(REF_OBJECT "{}")
-    if (SMORJO_IN_TYPE STREQUAL "branch")
+    if (SMORJO_IN_VERSION_TYPE STREQUAL "branch")
         if (NOT DEFINED SMORJO_IN_MEMBER_BRANCH)
             message(FATAL_ERROR "Missing SMORJO_IN_MEMBER_BRANCH argument.")
         endif()
@@ -744,13 +778,13 @@ function(set_members_of_reference_json_object)
         endif()
         string(JSON REF_OBJECT SET "${REF_OBJECT}" "branch" "${SMORJO_IN_MEMBER_BRANCH}")
         string(JSON REF_OBJECT SET "${REF_OBJECT}" "commit" "${SMORJO_IN_MEMBER_COMMIT}")
-    elseif(SMORJO_IN_TYPE STREQUAL "tag")
+    elseif(SMORJO_IN_VERSION_TYPE STREQUAL "tag")
         if (NOT DEFINED SMORJO_IN_MEMBER_TAG)
             message(FATAL_ERROR "Missing SMORJO_IN_MEMBER_TAG argument.")
         endif()
         string(JSON REF_OBJECT SET "${REF_OBJECT}" "tag" "${SMORJO_IN_MEMBER_TAG}")
     else()
-        message(FATAL_ERROR "Invalid SMORJO_IN_TYPE value. (${SMORJO_IN_TYPE})")
+        message(FATAL_ERROR "Invalid SMORJO_IN_VERSION_TYPE value. (${SMORJO_IN_VERSION_TYPE})")
     endif()
     #
     # Return the content of ${REF_OBJECT} to the argument of OUT_JSON_OBJECT.
@@ -1135,7 +1169,7 @@ function(get_reference_of_latest_from_repo_and_current_from_json)
             IN_MEMBER_TITLE             "\"${LATEST_COMMIT_TITLE}\""
             OUT_JSON_OBJECT             COMMIT_CNT)
         set_members_of_reference_json_object(
-            IN_TYPE                     "branch"
+            IN_VERSION_TYPE             "branch"
             IN_MEMBER_BRANCH            "\"${GRLCJ_IN_BRANCH_NAME}\""
             IN_MEMBER_COMMIT            "${COMMIT_CNT}"
             OUT_JSON_OBJECT             LATEST_OBJECT)
@@ -1153,7 +1187,7 @@ function(get_reference_of_latest_from_repo_and_current_from_json)
             IN_TAG_SUFFIX               "${GRLCJ_IN_TAG_SUFFIX}"
             OUT_TAG                     LATEST_TAG)
         set_members_of_reference_json_object(
-            IN_TYPE                     "tag"
+            IN_VERSION_TYPE             "tag"
             IN_MEMBER_TAG               "\"${LATEST_TAG}\""
             OUT_JSON_OBJECT             LATEST_OBJECT)
         set(LATEST_REFERENCE            "${LATEST_TAG}")
