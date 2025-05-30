@@ -136,7 +136,7 @@ function(create_git_worktree_for_l10n_branch)
                     ERROR_VARIABLE  ERR_VAR ERROR_STRIP_TRAILING_WHITESPACE)
                 if (RES_VAR EQUAL 0)
                     # Fetch refspec 'refs/heads/l10n:refs/remotes/${REMOTE_NAME}/l10n' already exists.
-                elseif(RES_VAR EQUAL 1)
+                elseif (RES_VAR EQUAL 1)
                     # Fetch refspec 'refs/heads/l10n:refs/remotes/${REMOTE_NAME}/l10n' doesn't exist.
                     execute_process(
                         COMMAND ${Git_EXECUTABLE} config --add
@@ -373,7 +373,7 @@ function(get_git_latest_commit_on_branch_name)
     #
     if (GGLCBN_IN_SOURCE_TYPE STREQUAL "local")
         set(GGLCBN_REPO_SOURCE "${GGLCBN_IN_LOCAL_PATH}")
-    elseif(GGLCBN_IN_SOURCE_TYPE STREQUAL "remote")
+    elseif (GGLCBN_IN_SOURCE_TYPE STREQUAL "remote")
         execute_process(
             COMMAND ${Git_EXECUTABLE} remote get-url origin
             WORKING_DIRECTORY ${GGLCBN_IN_LOCAL_PATH}
@@ -566,7 +566,7 @@ function(get_git_latest_tag_on_tag_pattern)
     #
     if (GGLTTP_IN_SOURCE_TYPE STREQUAL "local")
         set(GGLTTP_REPO_SOURCE "${GGLTTP_IN_LOCAL_PATH}")
-    elseif(GGLTTP_IN_SOURCE_TYPE STREQUAL "remote")
+    elseif (GGLTTP_IN_SOURCE_TYPE STREQUAL "remote")
         execute_process(
             COMMAND ${Git_EXECUTABLE} remote
             WORKING_DIRECTORY ${GGLTTP_IN_LOCAL_PATH}

@@ -721,7 +721,7 @@ function(caculate_statistics_of_gettext)
             #
             if (TRANSLATED_MSGID_PCT EQUAL 100)
                 math(EXPR NUM_OF_PO_COMPLETED "${NUM_OF_PO_COMPLETED} + 1")
-            elseif(TRANSLATED_MSGID_PCT EQUAL 0)
+            elseif (TRANSLATED_MSGID_PCT EQUAL 0)
                 math(EXPR NUM_OF_PO_UNSTARTED "${NUM_OF_PO_UNSTARTED} + 1")
             else()
                 math(EXPR NUM_OF_PO_PROGRESSING "${NUM_OF_PO_PROGRESSING} + 1")
