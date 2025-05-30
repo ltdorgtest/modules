@@ -1,64 +1,6 @@
 # Distributed under the OSI-approved BSD 3-Clause License.
 # See accompanying file LICENSE.txt for details.
 
-#[================================================================================[.rst
-GitUtils
---------
-
-.. command:: get_git_latest_branch_on_branch_pattern
-
-  .. code-block:: cmake
-
-    get_git_latest_branch_on_branch_pattern(
-        IN_LOCAL_PATH        "${PROJ_OUT_REPO_DIR}"
-        IN_SOURCE_TYPE      "local"
-        IN_BRANCH_PATTERN   "${BRANCH_PATTERN}"
-        IN_BRANCH_SUFFIX    "${BRANCH_SUFFIX}"
-        OUT_BRANCH          BRANCH_NAME)
-
-.. command:: get_git_latest_commit_on_branch_name
-
-  .. code-block:: cmake
-
-    get_git_latest_commit_on_branch_name(
-        IN_LOCAL_PATH        "${PROJ_OUT_REPO_DIR}"
-        IN_SOURCE_TYPE      "local"
-        IN_BRANCH_NAME      "${BRANCH_NAME}"
-        OUT_COMMIT_DATE     LATEST_POT_COMMIT_DATE
-        OUT_COMMIT_HASH     LATEST_POT_COMMIT_HASH
-        OUT_COMMIT_TITLE    LATEST_POT_COMMIT_TITLE)
-
-.. command:: get_git_latest_tag_on_tag_pattern
-
-  .. code-block:: cmake
-
-    get_git_latest_tag_on_tag_pattern(
-        IN_LOCAL_PATH        "${PROJ_OUT_REPO_DIR}"
-        IN_SOURCE_TYPE      "local"
-        IN_TAG_PATTERN      "${TAG_PATTERN}"
-        IN_TAG_SUFFIX       "${TAG_SUFFIX}"
-        OUT_TAG             LATEST_POT_TAG)
-
-.. command:: switch_to_git_reference_on_branch
-
-  .. code-block:: cmake
-
-    switch_to_git_reference_on_branch(
-        IN_LOCAL_PATH        "${PROJ_OUT_REPO_DIR}"
-        IN_REFERENCE        "${SWITCH_REFERENCE}"
-        IN_BRANCH           "current")
-
-.. command:: create_git_worktree_for_l10n_branch
-
-  .. code-block:: cmake
-
-    create_git_worktree_for_l10n_branch(
-        IN_REMOTE_URL       "${REMOTE_URL_OF_L10N}"
-        IN_LOCAL_PATH        "${PROJ_SOURCE_DIR}"
-        IN_WORKTREE_PATH    "${PROJ_L10N_DIR}")
-
-#]================================================================================]
-
 
 include_guard()
 

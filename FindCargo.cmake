@@ -91,6 +91,7 @@ include(FindPackageHandleStandardArgs)
 find_package_handle_standard_args(Cargo
     REQUIRED_VARS
         Cargo_EXECUTABLE
+        Cargo_VERSION
     VERSION_VAR
         Cargo_VERSION
     FOUND_VAR

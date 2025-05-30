@@ -111,5 +111,7 @@ if (Dasel_FOUND)
     unset(_Dasel_CMAKE_ROLE)
 endif()
 
+unset(_Dasel_PATH_SUFFIXES)
 unset(_Dasel_SEARCH_HINTS)
 unset(_Dasel_SEARCH_PATHS)
+unset(_Dasel_FAILURE_REASON)

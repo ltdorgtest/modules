@@ -117,5 +117,7 @@ if (Doxygen_FOUND)
     unset(_Doxygen_CMAKE_ROLE)
 endif()
 
+unset(_Doxygen_PATH_SUFFIXES)
 unset(_Doxygen_SEARCH_HINTS)
 unset(_Doxygen_SEARCH_PATHS)
+unset(_Doxygen_FAILURE_REASON)

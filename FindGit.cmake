@@ -111,3 +111,4 @@ endif()
 
 unset(_Git_SEARCH_HINTS)
 unset(_Git_SEARCH_PATHS)
+unset(_Git_FAILURE_REASON)

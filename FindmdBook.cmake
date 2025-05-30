@@ -13,7 +13,7 @@ Imported Targets
 This module defines the following Imported Targets (only created when CMAKE_ROLE is ``PROJECT``):
 
 ``mdBook::mdBook``
-  The ``mdbook`` executable.
+  The full path to the ``mdbook`` executable.
 
 Result Variables
 ^^^^^^^^^^^^^^^^
