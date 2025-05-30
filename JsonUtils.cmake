@@ -239,7 +239,7 @@ function(init_references_json_file)
     #
     string(JSON JSON_CNT SET "${JSON_CNT}" "type" "\"${IRJF_IN_TYPE}\"")
     #
-    #
+    # Call internal initialization functions based on IN_TYPE and IN_MODE.
     #
     if (IRJF_IN_TYPE STREQUAL "tag")
         if (IRJF_IN_MODE STREQUAL "language")
