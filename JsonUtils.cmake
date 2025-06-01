@@ -174,26 +174,6 @@ include_guard()
 include(GitUtils)
 
 
-#[[[
-# Initialize a references.json file.
-#
-# **Keyword Arguments**
-#
-# :keyword  IN_FILEPATH: (Required)
-# :type     IN_FILEPATH: json
-#
-# :keyword  IN_VERSION_TYPE: (Required)
-# :type     IN_VERSION_TYPE: string
-#
-# :keyword  IN_VERSION: (Required)
-# :type     IN_VERSION: string
-#
-# :keyword  IN_INIT_MODE: (Required)
-# :type     IN_INIT_MODE: string
-#
-# :keyword  IN_INIT_LIST: (Required)
-# :type     IN_INIT_LIST: string
-#]]
 function(init_references_json_file)
     #
     # Parse arguments.
@@ -588,23 +568,6 @@ macro(_init_references_json_file_for_branch_repository)
 endmacro()
 
 
-#[[[
-# Get members of JSON object.
-#
-# **Keyword Arguments**
-#
-# :keyword  IN_JSON_OBJECT: (Required)
-# :type     IN_JSON_OBJECT: json
-#
-# :keyword  OUT_MEMBER_NAMES: (Required)
-# :type     OUT_MEMBER_NAMES: string
-#
-# :keyword  OUT_MEMBER_VALUES: (Required)
-# :type     OUT_MEMBER_VALUES: string
-#
-# :keyword  OUT_MEMBER_NUMBER: (Required)
-# :type     OUT_MEMBER_NUMBER: string
-#]]
 function(get_members_of_json_object)
     #
     # Parse arguments.
@@ -655,23 +618,6 @@ function(get_members_of_json_object)
 endfunction()
 
 
-#[[[
-# Set members of JSON object for 'commit'.
-#
-# **Keyword Arguments**
-#
-# :keyword  IN_MEMBER_DATE: (Required)
-# :type     IN_MEMBER_DATE: string
-#
-# :keyword  IN_MEMBER_HASH: (Required)
-# :type     IN_MEMBER_HASH: string
-#
-# :keyword  IN_MEMBER_TITLE: (Required)
-# :type     IN_MEMBER_TITLE: string
-#
-# :keyword  OUT_JSON_OBJECT: (Required)
-# :type     OUT_JSON_OBJECT: json
-#]]
 function(set_members_of_commit_json_object)
     #
     # Parse arguments.
@@ -711,9 +657,6 @@ function(set_members_of_commit_json_object)
 endfunction()
 
 
-#[[[
-# Set members of JSON object for 'reference'.
-#]]
 function(set_members_of_reference_json_object)
     #
     # Parse arguments.
@@ -779,26 +722,6 @@ function(set_members_of_reference_json_object)
 endfunction()
 
 
-#[[[
-# Dot Notation Setter.
-#
-# **Keyword Arguments**
-#
-# :keyword  ERROR_VARIABLE: (Optional)
-# :type     ERROR_VARIABLE: string
-#
-# :keyword  IN_JSON_OBJECT: (Required)
-# :type     IN_JSON_OBJECT: string
-#
-# :keyword  IN_DOT_NOTATION: (Required)
-# :type     IN_DOT_NOTATION: string
-#
-# :keyword  IN_JSON_VALUE: (Required)
-# :type     IN_JSON_VALUE: string
-#
-# :keyword  OUT_JSON_OBJECT: (Required)
-# :type     OUT_JSON_OBJECT: string
-#]]
 function(set_json_value_by_dot_notation)
     #
     # Parse arguments.
@@ -933,9 +856,6 @@ function(set_json_value_by_dot_notation)
 endfunction()
 
 
-#
-# Dot Notation Getter.
-#
 function(get_json_value_by_dot_notation)
     #
     # Parse arguments.
@@ -1045,54 +965,6 @@ function(get_json_value_by_dot_notation)
 endfunction()
 
 
-#[[[
-# Get Reference of Latest from Repository and Current from Json.
-#
-# **Keyword Arguments**
-#
-# :type     IN_JSON_CNT: string
-# :keyword  IN_JSON_CNT: (Required)
-#           Input JSON content as a string containing the current reference information.
-#
-# :type     IN_LOCAL_PATH: string
-# :keyword  IN_LOCAL_PATH: (Required)
-#           Path to the local repository to retrieve the latest reference.
-#
-# :type     IN_DOT_NOTATION: string
-# :keyword  IN_DOT_NOTATION: (Required)
-#           Dot notation path used to extract the current reference from the input JSON content.
-#
-# :type     IN_VERSION_TYPE: string
-# :keyword  IN_VERSION_TYPE: (Required)
-#
-# :type     IN_BRANCH_NAME: string
-# :keyword  IN_BRANCH_NAME: (Optional)
-#           Name of the branch to retrieve the latest commit.
-#
-# :type     IN_TAG_PATTERN: string
-# :keyword  IN_TAG_PATTERN: (Optional)
-#           Pattern to match tags for the latest tag retrieval.
-#
-# :type     IN_TAG_SUFFIX: string
-# :keyword  IN_TAG_SUFFIX: (Optional)
-#           Suffix to append to the tag name during tag matching.
-#
-# :type     OUT_LATEST_OBJECT: string
-# :keyword  OUT_LATEST_OBJECT: (Optional)
-#           Variable to store the latest reference JSON object.
-#
-# :type     OUT_LATEST_REFERENCE: string
-# :keyword  OUT_LATEST_REFERENCE: (Optional)
-#           Variable to store the latest reference (branch or tag).
-#
-# :type     OUT_CURRENT_OBJECT: string
-# :keyword  OUT_CURRENT_OBJECT: (Optional)
-#           Variable to store the current reference JSON object.
-#
-# :type     OUT_CURRENT_REFERENCE: string
-# :keyword  OUT_CURRENT_REFERENCE: (Optional)
-#           Variable to store the current reference (branch or tag).
-#]]
 function(get_reference_of_latest_from_repo_and_current_from_json)
     #
     # Parse arguments.
@@ -1193,29 +1065,6 @@ function(get_reference_of_latest_from_repo_and_current_from_json)
 endfunction()
 
 
-#[[[
-# Get Reference of POT and PO from Json.
-#
-# **Keyword Arguments**
-#
-# :type     IN_JSON_CNT: string
-# :keyword  IN_JSON_CNT: (Required)
-#
-# :type     IN_VERSION_TYPE: string
-# :keyword  IN_VERSION_TYPE: (Required)
-#
-# :type     OUT_POT_OBJECT: string
-# :keyword  OUT_POT_OBJECT: (Optional)
-#
-# :type     OUT_POT_REFERENCE: string
-# :keyword  OUT_POT_REFERENCE: (Optional)
-#
-# :type     OUT_PO_OBJECT: string
-# :keyword  OUT_PO_OBJECT: (Optional)
-#
-# :type     OUT_PO_REFERENCE: string
-# :keyword  OUT_PO_REFERENCE: (Optional)
-#]]
 function(get_reference_of_pot_and_po_from_json)
     #
     # Parse arguments.
@@ -1282,4 +1131,3 @@ function(get_reference_of_pot_and_po_from_json)
     set(${GRPPJ_OUT_PO_OBJECT}      "${PO_OBJECT}"      PARENT_SCOPE)
     set(${GRPPJ_OUT_PO_REFERENCE}   "${PO_REFERENCE}"   PARENT_SCOPE)
 endfunction()
-
