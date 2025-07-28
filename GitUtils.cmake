@@ -627,8 +627,7 @@ function(get_git_latest_tag_on_tag_pattern)
         COMMAND ${Git_EXECUTABLE} ls-remote
                 --refs
                 --tags
-                --sort=-refname
-                # --sort=-version:refname
+                --sort=-v:refname
                 ${GGLTTP_REPO_SOURCE}
         WORKING_DIRECTORY ${GGLTTP_IN_LOCAL_PATH}
         RESULT_VARIABLE RES_VAR
