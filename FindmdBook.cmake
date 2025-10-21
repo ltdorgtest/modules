@@ -99,9 +99,12 @@ Hints
 ^^^^^
 
 ``mdBook_ROOT_DIR``, ``ENV{mdBook_ROOT_DIR}``
-  Define the root directory of a mdBook installation.
+  The root directory of a mdBook installation where the executable is located.
+  This can be used to specify a custom mdBook installation path.
 
 ``ENV{CARGO_HOME}``
+  The Cargo home directory where installed binaries are typically located.
+  mdBook and its plugins are usually installed via Cargo and placed in ``$CARGO_HOME/bin``.
 
 #]================================================================================]
 
