@@ -13,7 +13,7 @@ Imported Targets
 This module defines the following Imported Targets (only created when CMAKE_ROLE is ``PROJECT``):
 
 ``Dasel::Dasel``
-  The ``dasel`` executable.
+  The full path to the ``dasel`` executable.
 
 Result Variables
 ^^^^^^^^^^^^^^^^
@@ -25,22 +25,23 @@ Result Variables
   The full path to the ``dasel`` executable.
 
 ``Dasel_VERSION``
-  The version of Dasel found.
+  The version of the Dasel found.
 
 ``Dasel_VERSION_MAJOR``
-  The major version of Dasel found.
+  The major version of the Dasel found.
 
 ``Dasel_VERSION_MINOR``
-  The minor version of Dasel found.
+  The minor version of the Dasel found.
 
 ``Dasel_VERSION_PATCH``
-  The patch version of Dasel found.
+  The patch version of the Dasel found.
 
 Hints
 ^^^^^
 
 ``Dasel_ROOT_DIR``, ``ENV{Dasel_ROOT_DIR}``
-  Define the root directory of a Dasel installation.
+  The root directory of a Dasel installation where the executable is located.
+  This can be used to specify a custom Dasel installation path.
 
 #]================================================================================]
 
