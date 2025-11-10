@@ -44,6 +44,9 @@ Result Variables
 ``mdBook_FOUND``
   Boolean indicating whether the ``mdbook`` executable and all requested required components were found.
 
+``mdBook_EXECUTABLE``
+  The full path to the ``mdbook`` executable.
+
 ``mdBook_mdBook_FOUND``
   Boolean indicating whether the ``mdbook`` executable.
 
@@ -59,8 +62,8 @@ Result Variables
 ``mdBook_VERSION_PATCH``
   The patch version of the ``mdbook`` executable found.
 
-``mdBook_EXECUTABLE``
-  The full path to the ``mdbook`` executable.
+``mdBook_ADMONISH_EXECUTABLE``
+  The full path to the ``mdbook-admonish`` executable.
 
 ``mdBook_Admonish_FOUND``
   Boolean indicating whether the ``mdbook-admonish`` executable.
@@ -77,8 +80,8 @@ Result Variables
 ``mdBook_Admonish_VERSION_PATCH``
   The patch version of the ``mdbook-admonish`` executable found.
 
-``mdBook_ADMONISH_EXECUTABLE``
-  The full path to the ``mdbook-admonish`` executable.
+``mdBook_MERMAID_EXECUTABLE``
+  The full path to the ``mdbook-mermaid`` executable.
 
 ``mdBook_Mermaid_FOUND``
   Boolean indicating whether the ``mdbook-mermaid`` executable.
@@ -94,9 +97,6 @@ Result Variables
 
 ``mdBook_Mermaid_VERSION_PATCH``
   The patch version of the ``mdbook-mermaid`` executable found.
-
-``mdBook_MERMAID_EXECUTABLE``
-  The full path to the ``mdbook-mermaid`` executable.
 
 Hints
 ^^^^^
