@@ -7,7 +7,7 @@ FindmdBook
 
 Try to find `mdBook <https://github.com/rust-lang/mdBook>`_, along with some optional supporting tools:
 
-* `mdbook-admonish <github.com/tommilligan/mdbook-admonish>`_
+* `mdbook-admonish <https://github.com/tommilligan/mdbook-admonish>`_
 * `mdbook-mermaid <https://github.com/badboy/mdbook-mermaid>`_
 
 Components
@@ -27,73 +27,76 @@ Supported components include:
 Imported Targets
 ^^^^^^^^^^^^^^^^
 
-This module defines the following Imported Targets (only created when CMAKE_ROLE is ``PROJECT``):
+This module provides the following Imported Targets (only created when CMAKE_ROLE is ``PROJECT``):
 
 ``mdBook::mdBook``
-  The full path to the ``mdbook`` executable.
+  Target encapsulating the ``mdbook`` executable usage requirements, available if the ``mdBook`` component was found.
 
 ``mdBook::Admonish``
-  The full path to the ``mdbook-admonish`` executable.
+  Target encapsulating the ``admonish`` executable usage requirements, available if the ``Admonish`` component was found.
 
 ``mdBook::Mermaid``
-  The full path to the ``mdbook-mermaid`` executable.
+  Target encapsulating the ``mdbook-mermaid`` executable usage requirements, available if the ``Mermaid`` component was found.
 
 Result Variables
 ^^^^^^^^^^^^^^^^
 
 ``mdBook_FOUND``
-  System has ``mdbook``. True if mdBook has been found.
+  Boolean indicating whether the ``mdbook`` executable and all requested required components were found.
+
+``mdBook_mdBook_FOUND``
+  Boolean indicating whether the ``mdbook`` executable.
+
+``mdBook_VERSION``
+  The version of the ``mdbook`` executable found.
+
+``mdBook_VERSION_MAJOR``
+  The major version of the ``mdbook`` executable found.
+
+``mdBook_VERSION_MINOR``
+  The minor version of the ``mdbook`` executable found.
+
+``mdBook_VERSION_PATCH``
+  The patch version of the ``mdbook`` executable found.
 
 ``mdBook_EXECUTABLE``
   The full path to the ``mdbook`` executable.
 
-``mdBook_VERSION``
-  The version of the ``mdbook`` found.
-
-``mdBook_VERSION_MAJOR``
-  The major version of the ``mdbook`` found.
-
-``mdBook_VERSION_MINOR``
-  The minor version of the ``mdbook`` found.
-
-``mdBook_VERSION_PATCH``
-  The patch version of the ``mdbook`` found.
-
 ``mdBook_Admonish_FOUND``
-  System has ``mdbook-admonish``. True if ``mdbook-admonish`` has been found.
+  Boolean indicating whether the ``mdbook-admonish`` executable.
+
+``mdBook_Admonish_VERSION``
+  The version of the ``mdbook-admonish`` executable found.
+
+``mdBook_Admonish_VERSION_MAJOR``
+  The major version of the ``mdbook-admonish`` executable found.
+
+``mdBook_Admonish_VERSION_MINOR``
+  The minor version of the ``mdbook-admonish`` executable found.
+
+``mdBook_Admonish_VERSION_PATCH``
+  The patch version of the ``mdbook-admonish`` executable found.
 
 ``mdBook_ADMONISH_EXECUTABLE``
   The full path to the ``mdbook-admonish`` executable.
 
-``mdBook_Admonish_VERSION``
-  The version of the ``mdbook-admonish`` found.
-
-``mdBook_Admonish_VERSION_MAJOR``
-  The major version of the ``mdbook-admonish`` found.
-
-``mdBook_Admonish_VERSION_MINOR``
-  The minor version of the ``mdbook-admonish`` found.
-
-``mdBook_Admonish_VERSION_PATCH``
-  The patch version of the ``mdbook-admonish`` found.
-
 ``mdBook_Mermaid_FOUND``
-  System has ``mdbook-mermaid``. True if ``mdbook-mermaid`` has been found.
+  Boolean indicating whether the ``mdbook-mermaid`` executable.
+
+``mdBook_Mermaid_VERSION``
+  The version of the ``mdbook-mermaid`` executable found.
+
+``mdBook_Mermaid_VERSION_MAJOR``
+  The major version of the ``mdbook-mermaid`` executable found.
+
+``mdBook_Mermaid_VERSION_MINOR``
+  The minor version of the ``mdbook-mermaid`` executable found.
+
+``mdBook_Mermaid_VERSION_PATCH``
+  The patch version of the ``mdbook-mermaid`` executable found.
 
 ``mdBook_MERMAID_EXECUTABLE``
   The full path to the ``mdbook-mermaid`` executable.
-
-``mdBook_Mermaid_VERSION``
-  The version of the ``mdbook-mermaid`` found.
-
-``mdBook_Mermaid_VERSION_MAJOR``
-  The major version of the ``mdbook-mermaid`` found.
-
-``mdBook_Mermaid_VERSION_MINOR``
-  The minor version of the ``mdbook-mermaid`` found.
-
-``mdBook_Mermaid_VERSION_PATCH``
-  The patch version of the ``mdbook-mermaid`` found.
 
 Hints
 ^^^^^
@@ -113,8 +116,7 @@ set(_mdBook_PATH_SUFFIXES bin)
 set(_mdBook_KNOWN_COMPONENTS
     mdBook
     Admonish
-    Mermaid
-    )
+    Mermaid)
 
 # Make sure 'mdBook' is one of the components to find.
 if (NOT mdBook_FIND_COMPONENTS)
