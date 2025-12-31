@@ -703,7 +703,7 @@ function(switch_to_git_reference_on_branch)
     set(ONE_VALUE_ARGS      IN_LOCAL_PATH
                             IN_REFERENCE
                             IN_BRANCH)
-    set(MULTI_VALUE_ARGS)
+    set(MULTI_VALUE_ARGS    IN_SUBMODULES)
     cmake_parse_arguments(SGRB
         "${OPTIONS}"
         "${ONE_VALUE_ARGS}"
@@ -779,15 +779,33 @@ function(switch_to_git_reference_on_branch)
             ECHO_ERROR_VARIABLE
             COMMAND_ERROR_IS_FATAL ANY)
         message("")
-        execute_process(
-            COMMAND ${Git_EXECUTABLE} submodule update
-                    --init
-                    --recursive
-                    --depth=1
-            WORKING_DIRECTORY ${SGRB_IN_LOCAL_PATH}
-            ECHO_OUTPUT_VARIABLE
-            ECHO_ERROR_VARIABLE
-            COMMAND_ERROR_IS_FATAL ANY)
+        if (DEFINED SGRB_IN_SUBMODULES)
+            # Initialize and update only specified submodules
+            foreach(SUBMODULE ${SGRB_IN_SUBMODULES})
+                execute_process(
+                    COMMAND ${Git_EXECUTABLE} submodule update
+                            --init
+                            --recursive
+                            --depth=1
+                            -- ${SUBMODULE}
+                    WORKING_DIRECTORY ${SGRB_IN_LOCAL_PATH}
+                    ECHO_OUTPUT_VARIABLE
+                    ECHO_ERROR_VARIABLE
+                    COMMAND_ERROR_IS_FATAL ANY)
+                message("")
+            endforeach()
+        else()
+            # Initialize and update all submodules
+            execute_process(
+                COMMAND ${Git_EXECUTABLE} submodule update
+                        --init
+                        --recursive
+                        --depth=1
+                WORKING_DIRECTORY ${SGRB_IN_LOCAL_PATH}
+                ECHO_OUTPUT_VARIABLE
+                ECHO_ERROR_VARIABLE
+                COMMAND_ERROR_IS_FATAL ANY)
+        endif()
     endif()
 endfunction()
 
