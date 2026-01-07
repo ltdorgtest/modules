@@ -117,6 +117,7 @@ if (Poetry_FOUND)
     unset(_Poetry_CMAKE_ROLE)
 endif()
 
+unset(_Poetry_PATH_SUFFIXES)
 unset(_Poetry_SEARCH_HINTS)
 unset(_Poetry_SEARCH_PATHS)
 unset(_Poetry_FAILURE_REASON)

@@ -117,6 +117,7 @@ if (Uv_FOUND)
     unset(_Uv_CMAKE_ROLE)
 endif()
 
+unset(_Uv_PATH_SUFFIXES)
 unset(_Uv_SEARCH_HINTS)
 unset(_Uv_SEARCH_PATHS)
 unset(_Uv_FAILURE_REASON)
