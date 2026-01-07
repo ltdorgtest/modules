@@ -5,7 +5,7 @@
 FindUv
 ---------
 
-Try to find Uv executable.
+Find the Uv executable.
 
 Imported Targets
 ^^^^^^^^^^^^^^^^
@@ -13,43 +13,47 @@ Imported Targets
 This module defines the following Imported Targets (only created when CMAKE_ROLE is ``PROJECT``):
 
 ``Uv::Uv``
-  The ``uv`` executable.
+  Target encapsulating the ``uv`` executable usage requirements.
 
 Result Variables
 ^^^^^^^^^^^^^^^^
 
 ``Uv_FOUND``
-  System has Uv. True if Uv has been found.
+  Boolean indicating whether the ``uv`` executable.
 
 ``Uv_EXECUTABLE``
   The full path to the ``uv`` executable.
 
 ``Uv_VERSION``
-  The version of Uv found.
+  The version of the ``uv`` executable found.
 
 ``Uv_VERSION_MAJOR``
-  The major version of Uv found.
+  The major version of the ``uv`` executable found.
 
 ``Uv_VERSION_MINOR``
-  The minor version of Uv found.
+  The minor version of the ``uv`` executable found.
 
 ``Uv_VERSION_PATCH``
-  The patch version of Uv found.
+  The patch version of the ``uv`` executable found.
 
 Hints
 ^^^^^
 
 ``Uv_ROOT_DIR``, ``ENV{Uv_ROOT_DIR}``
-  Define the root directory of a Uv installation.
+  The root directory of a Uv installation where the executable is located.
+  This can be used to specify a custom Uv installation path.
 
 #]================================================================================]
 
-set(_Uv_PATH_SUFFIXES bin)
+if (CMAKE_HOST_WIN32)
+    set(_Uv_PATH_SUFFIXES Scripts)
+else()
+    set(_Uv_PATH_SUFFIXES bin)
+endif()
 
 set(_Uv_SEARCH_HINTS
     ${Uv_ROOT_DIR}
-    ENV Uv_ROOT_DIR
-    ENV CARGO_HOME)
+    ENV Uv_ROOT_DIR)
 
 set(_Uv_SEARCH_PATHS "")
 
@@ -60,11 +64,11 @@ find_program(Uv_EXECUTABLE
     PATH_SUFFIXES ${_Uv_PATH_SUFFIXES}
     HINTS ${_Uv_SEARCH_HINTS}
     PATHS ${_Uv_SEARCH_PATHS}
-    DOC "The full path to the uv executable.")
+    DOC "The full path to the ``uv`` executable.")
 
 if (Uv_EXECUTABLE)
     execute_process(
-        COMMAND "${Uv_EXECUTABLE}" --version
+        COMMAND ${Uv_EXECUTABLE} --version
         RESULT_VARIABLE _Uv_VERSION_RESULT
         OUTPUT_VARIABLE _Uv_VERSION_OUTPUT OUTPUT_STRIP_TRAILING_WHITESPACE
         ERROR_VARIABLE  _Uv_VERSION_ERROR  ERROR_STRIP_TRAILING_WHITESPACE)
@@ -106,13 +110,13 @@ if (Uv_FOUND)
         if (NOT TARGET Uv::Uv)
             add_executable(Uv::Uv IMPORTED)
             set_target_properties(Uv::Uv PROPERTIES
-                IMPORTED_LOCATION "${Uv_EXECUTABLE}")
+                IMPORTED_LOCATION
+                    "${Uv_EXECUTABLE}")
         endif()
     endif()
     unset(_Uv_CMAKE_ROLE)
 endif()
 
-unset(_Uv_PATH_SUFFIXES)
 unset(_Uv_SEARCH_HINTS)
 unset(_Uv_SEARCH_PATHS)
 unset(_Uv_FAILURE_REASON)

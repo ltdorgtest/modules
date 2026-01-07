@@ -5,7 +5,7 @@
 FindPoetry
 ---------
 
-Try to find Poetry executable.
+Find the Poetry executable.
 
 Imported Targets
 ^^^^^^^^^^^^^^^^
@@ -13,42 +13,37 @@ Imported Targets
 This module defines the following Imported Targets (only created when CMAKE_ROLE is ``PROJECT``):
 
 ``Poetry::Poetry``
-  The ``poetry`` executable.
+  Target encapsulating the ``poetry`` executable usage requirements.
 
 Result Variables
 ^^^^^^^^^^^^^^^^
 
 ``Poetry_FOUND``
-  System has Poetry. True if Poetry has been found.
+  Boolean indicating whether the ``poetry`` executable.
 
 ``Poetry_EXECUTABLE``
   The full path to the ``poetry`` executable.
 
 ``Poetry_VERSION``
-  The version of Poetry found.
+  The version of the ``poetry`` executable found.
 
 ``Poetry_VERSION_MAJOR``
-  The major version of Poetry found.
+  The major version of the ``poetry`` executable found.
 
 ``Poetry_VERSION_MINOR``
-  The minor version of Poetry found.
+  The minor version of the ``poetry`` executable found.
 
 ``Poetry_VERSION_PATCH``
-  The patch version of Poetry found.
+  The patch version of the ``poetry`` executable found.
 
 Hints
 ^^^^^
 
 ``Poetry_ROOT_DIR``, ``ENV{Poetry_ROOT_DIR}``
-  Define the root directory of a Poetry installation.
+  The root directory of a Poetry installation where the executable is located.
+  This can be used to specify a custom Poetry installation path.
 
 #]================================================================================]
-
-if (CMAKE_HOST_WIN32)
-    set(_POETRY_NAME "poetry.bat;poetry.exe")
-else()
-    set(_POETRY_NAME "poetry")
-endif()
 
 if (CMAKE_HOST_WIN32)
     set(_Poetry_PATH_SUFFIXES Scripts)
@@ -65,11 +60,11 @@ set(_Poetry_SEARCH_PATHS "")
 set(_Poetry_FAILURE_REASON "")
 
 find_program(Poetry_EXECUTABLE
-    NAMES ${_POETRY_NAME}
+    NAMES poetry
     PATH_SUFFIXES ${_Poetry_PATH_SUFFIXES}
     HINTS ${_Poetry_SEARCH_HINTS}
     PATHS ${_Poetry_SEARCH_PATHS}
-    DOC "The full path to the 'poetry' executable.")
+    DOC "The full path to the ``poetry`` executable.")
 
 if (Poetry_EXECUTABLE)
     execute_process(
