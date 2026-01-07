@@ -1,11 +1,11 @@
 # Distributed under the OSI-approved BSD 3-Clause License.
-# See accompanying file LICENSE-BSD for details.
+# See accompanying file LICENSE.txt for details.
 
 #[================================================================================[.rst:
 FindDasel
 ---------
 
-Try to find Dasel executable.
+Find the Dasel executable.
 
 Imported Targets
 ^^^^^^^^^^^^^^^^
@@ -13,28 +13,28 @@ Imported Targets
 This module defines the following Imported Targets (only created when CMAKE_ROLE is ``PROJECT``):
 
 ``Dasel::Dasel``
-  The full path to the ``dasel`` executable.
+  Target encapsulating the ``dasel`` executable usage requirements.
 
 Result Variables
 ^^^^^^^^^^^^^^^^
 
 ``Dasel_FOUND``
-  System has Dasel. True if Dasel has been found.
+  Boolean indicating whether the ``dasel`` executable.
 
 ``Dasel_EXECUTABLE``
   The full path to the ``dasel`` executable.
 
 ``Dasel_VERSION``
-  The version of the Dasel found.
+  The version of the ``dasel`` executable found.
 
 ``Dasel_VERSION_MAJOR``
-  The major version of the Dasel found.
+  The major version of the ``dasel`` executable found.
 
 ``Dasel_VERSION_MINOR``
-  The minor version of the Dasel found.
+  The minor version of the ``dasel`` executable found.
 
 ``Dasel_VERSION_PATCH``
-  The patch version of the Dasel found.
+  The patch version of the ``dasel`` executable found.
 
 Hints
 ^^^^^
