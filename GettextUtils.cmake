@@ -795,3 +795,121 @@ function(copy_po_from_src_to_dst)
     endforeach()
     unset(PO_SRC_FILE)
 endfunction()
+
+
+function(update_sphinx_pot_from_conf_py)
+    #
+    # Parse arguments.
+    #
+    set(OPTIONS)
+    set(ONE_VALUE_ARGS      IN_SPHINX_POT_FILE
+                            IN_CONF_PY_FILE
+                            IN_WRAP_WIDTH)
+    set(MULTI_VALUE_ARGS)
+    cmake_parse_arguments(USPFCP
+        "${OPTIONS}"
+        "${ONE_VALUE_ARGS}"
+        "${MULTI_VALUE_ARGS}"
+        ${ARGN})
+    #
+    # Ensure all required arguments are provided.
+    #
+    set(REQUIRED_ARGS       IN_SPHINX_POT_FILE
+                            IN_CONF_PY_FILE
+                            IN_WRAP_WIDTH)
+    foreach(ARG ${REQUIRED_ARGS})
+        if (NOT DEFINED USPFCP_${ARG})
+            message(FATAL_ERROR "Missing ${ARG} argument.")
+        endif()
+    endforeach()
+    #
+    # Find xgettext executable if not exists.
+    #
+    if (NOT EXISTS "${Gettext_XGETTEXT_EXECUTABLE}")
+        find_package(Gettext QUIET MODULE REQUIRED COMPONENTS Xgettext)
+    endif()
+    set(SPHINX_POT_FILE "${USPFCP_IN_SPHINX_POT_FILE}")
+    set(CONF_PY_FILE    "${USPFCP_IN_CONF_PY_FILE}")
+    set(WRAP_WIDTH      "${USPFCP_IN_WRAP_WIDTH}")
+    get_filename_component(SPHINX_POT_DIR "${SPHINX_POT_FILE}" DIRECTORY)
+    get_filename_component(CONF_PY_DIR    "${CONF_PY_FILE}" DIRECTORY)
+    get_filename_component(CONF_PY_NAME   "${CONF_PY_FILE}" NAME)
+    #
+    # Ensure the conf.py file exists.
+    #
+    if (NOT EXISTS "${CONF_PY_FILE}")
+        message(FATAL_ERROR "The specified conf.py file does not exist: ${CONF_PY_FILE}")
+    endif()
+    #
+    # Run xgettext command to generate or update sphinx.pot file.
+    #
+    if (EXISTS "${SPHINX_POT_FILE}")
+        message("xgettext:")
+        message("  --join-existing")
+        message("  --width          ${WRAP_WIDTH}")
+        message("  --output         ${SPHINX_POT_FILE}")
+        message("  [inputfile]      ${CONF_PY_NAME}")
+        message("  [workingdir]     ${CONF_PY_DIR}")
+        execute_process(
+            COMMAND ${Gettext_XGETTEXT_EXECUTABLE}
+                    --join-existing
+                    --width ${WRAP_WIDTH}
+                    --output ${SPHINX_POT_FILE}
+                    ${CONF_PY_NAME}
+            WORKING_DIRECTORY ${CONF_PY_DIR}
+            RESULT_VARIABLE RES_VAR
+            OUTPUT_VARIABLE OUT_VAR OUTPUT_STRIP_TRAILING_WHITESPACE
+            ERROR_VARIABLE  ERR_VAR ERROR_STRIP_TRAILING_WHITESPACE)
+        if (RES_VAR EQUAL 0)
+            if (ERR_VAR)
+                string(APPEND WARNING_REASON
+                "The command succeeded with warnings.\n\n"
+                "    result:\n\n${RES_VAR}\n\n"
+                "    stderr:\n\n${ERR_VAR}")
+                message("${WARNING_REASON}")
+            endif()
+        else()
+            string(APPEND FAILURE_REASON
+            "The command failed with fatal errors.\n"
+            "    result:\n${RES_VAR}\n"
+            "    stderr:\n${ERR_VAR}")
+            message(FATAL_ERROR "${FAILURE_REASON}")
+        endif()
+    else()
+        file(MAKE_DIRECTORY "${SPHINX_POT_DIR}")
+        message("xgettext:")
+        message("  --width          ${WRAP_WIDTH}")
+        message("  --output         ${SPHINX_POT_FILE}")
+        message("  [inputfile]      ${CONF_PY_NAME}")
+        message("  [workingdir]     ${CONF_PY_DIR}")
+        execute_process(
+            COMMAND ${Gettext_XGETTEXT_EXECUTABLE}
+                    --width ${WRAP_WIDTH}
+                    --output ${SPHINX_POT_FILE}
+                    ${CONF_PY_NAME}
+            WORKING_DIRECTORY ${CONF_PY_DIR}
+            RESULT_VARIABLE RES_VAR
+            OUTPUT_VARIABLE OUT_VAR OUTPUT_STRIP_TRAILING_WHITESPACE
+            ERROR_VARIABLE  ERR_VAR ERROR_STRIP_TRAILING_WHITESPACE)
+        if (RES_VAR EQUAL 0)
+            if (ERR_VAR)
+                string(APPEND WARNING_REASON
+                "The command succeeded with warnings.\n\n"
+                "    result:\n\n${RES_VAR}\n\n"
+                "    stderr:\n\n${ERR_VAR}")
+                message("${WARNING_REASON}")
+            endif()
+        else()
+            string(APPEND FAILURE_REASON
+            "The command failed with fatal errors.\n"
+            "    result:\n${RES_VAR}\n"
+            "    stderr:\n${ERR_VAR}")
+            message(FATAL_ERROR "${FAILURE_REASON}")
+        endif()
+        if (EXISTS "${SPHINX_POT_FILE}")
+            file(READ "${SPHINX_POT_FILE}" SPHINX_POT_CNT)
+            string(REPLACE "charset=CHARSET" "charset=UTF-8" SPHINX_POT_CNT "${SPHINX_POT_CNT}")
+            file(WRITE "${SPHINX_POT_FILE}" "${SPHINX_POT_CNT}")
+        endif()
+    endif()
+endfunction()
