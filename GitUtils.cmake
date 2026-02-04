@@ -440,15 +440,29 @@ function(get_git_latest_commit_on_branch_name)
                 --heads
                 --sort=-v:refname
                 ${GGLCBN_REPO_SOURCE}
-                ${GGLCBN_IN_BRANCH_NAME}
+                refs/heads/${GGLCBN_IN_BRANCH_NAME}
         WORKING_DIRECTORY ${GGLCBN_IN_LOCAL_PATH}
         RESULT_VARIABLE RES_VAR
         OUTPUT_VARIABLE OUT_VAR OUTPUT_STRIP_TRAILING_WHITESPACE
         ERROR_VARIABLE  ERR_VAR ERROR_STRIP_TRAILING_WHITESPACE)
     if (RES_VAR EQUAL 0)
         if (OUT_VAR)
-            string(REGEX REPLACE "^([0-9a-f]+)\t(.*)" "\\1" GGLCBN_HEAD_OID "${OUT_VAR}")
-            string(REGEX REPLACE "^([0-9a-f]+)\t(.*)" "\\2" GGLCBN_HEAD_REF "${OUT_VAR}")
+            string(REPLACE "\n" ";" GGLCBN_BRANCH_LINES "${OUT_VAR}")
+            set(GGLCBN_MATCH_LINE "")
+            foreach(GGLCBN_BRANCH_LINE ${GGLCBN_BRANCH_LINES})
+                if (GGLCBN_BRANCH_LINE MATCHES "^[0-9a-f]+\trefs/heads/${GGLCBN_IN_BRANCH_NAME}$")
+                    set(GGLCBN_MATCH_LINE "${GGLCBN_BRANCH_LINE}")
+                    break()
+                endif()
+            endforeach()
+            if (GGLCBN_MATCH_LINE)
+                string(REGEX REPLACE "^([0-9a-f]+)\t(.*)" "\\1" GGLCBN_HEAD_OID "${GGLCBN_MATCH_LINE}")
+                string(REGEX REPLACE "^([0-9a-f]+)\t(.*)" "\\2" GGLCBN_HEAD_REF "${GGLCBN_MATCH_LINE}")
+            else()
+                message(FATAL_ERROR "No exact match for branch '${GGLCBN_IN_BRANCH_NAME}' found in ls-remote output.")
+            endif()
+            unset(GGLCBN_MATCH_LINE)
+            unset(GGLCBN_BRANCH_LINES)
         else()
             message(FATAL_ERROR "No matching '${GGLCBN_IN_BRANCH_NAME}' branch pattern found.")
         endif()
