@@ -5,10 +5,14 @@
 FindmdBook
 ----------
 
-Try to find `mdBook <https://github.com/rust-lang/mdBook>`_, along with some optional supporting tools:
+Find `mdBook <https://github.com/rust-lang/mdBook>`_, along with some optional supporting tools:
 
 * `mdbook-admonish <https://github.com/tommilligan/mdbook-admonish>`_
 * `mdbook-mermaid <https://github.com/badboy/mdbook-mermaid>`_
+
+.. code-block:: cmake
+
+  find_package(mdBook [<version>] [COMPONENTS <components>...] [...])
 
 Components
 ^^^^^^^^^^

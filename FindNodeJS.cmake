@@ -3,9 +3,9 @@
 
 #[================================================================================[.rst:
 FindNodeJS
------------
+----------
 
-Find the NodeJS.
+Find the NodeJS executables.
 
 Imported Targets
 ^^^^^^^^^^^^^^^^
@@ -13,13 +13,13 @@ Imported Targets
 This module defines the following Imported Targets (only created when CMAKE_ROLE is ``PROJECT``):
 
 ``NodeJS::Node``
-  The NodeJS ``node`` executable, if found.
+  Target encapsulating the ``node`` executable usage requirements.
 
 ``NodeJS::Npm``
-  The NodeJS ``npm`` executable, if found.
+  Target encapsulating the ``npm`` executable usage requirements.
 
 ``NodeJS::Npx``
-  The NodeJS ``npx`` executable, if found.
+  Target encapsulating the ``npx`` executable usage requirements.
 
 Result Variables
 ^^^^^^^^^^^^^^^^
@@ -27,43 +27,49 @@ Result Variables
 This module will set the following variables in your project:
 
 ``NodeJS_FOUND``
-  System has the NodeJS. TRUE if NodeJS has been found.
+  Boolean indicating whether the NodeJS with all requested required components was found.
 
 ``NodeJS_NODE_EXECUTABLE``
-  The full path to the NodeJS ``node`` executable.
+  The full path to the ``node`` executable.
 
 ``NodeJS_NPM_EXECUTABLE``
-  The full path to the NodeJS ``npm`` executable.
+  The full path to the ``npm`` executable.
 
 ``NodeJS_NPX_EXECUTABLE``
-  The full path to the NodeJS ``npx`` executable.
+  The full path to the ``npx`` executable.
 
 ``NodeJS_VERSION``
-  The version of NodeJS ``node`` found.
+  The version of the ``node`` executable found.
 
 ``NodeJS_VERSION_MAJOR``
-  The major version of the NodeJS ``node`` found.
+  The major version of the ``node`` executable found.
 
 ``NodeJS_VERSION_MINOR``
-  The minor version of the NodeJS ``node`` found.
+  The minor version of the ``node`` executable found.
 
 ``NodeJS_NPM_VERSION``
-  The version of NodeJS ``npm`` found.
+  The version of the ``npm`` executable found.
 
 ``NodeJS_NPM_VERSION_MAJOR``
-  The major version of the NodeJS ``npm`` found.
+  The major version of the ``npm`` executable found.
 
 ``NodeJS_NPM_VERSION_MINOR``
-  The minor version of the NodeJS ``npm`` found.
+  The minor version of the ``npm`` executable found.
+
+``NodeJS_NPM_VERSION_PATCH``
+  The patch version of the ``npm`` executable found.
 
 ``NodeJS_NPX_VERSION``
-  The version of NodeJS ``npx`` found.
+  The version of the ``npx`` executable found.
 
 ``NodeJS_NPX_VERSION_MAJOR``
-  The major version of the NodeJS ``npx`` found.
+  The major version of the ``npx`` executable found.
 
 ``NodeJS_NPX_VERSION_MINOR``
-  The minor version of the NodeJS ``npx`` found.
+  The minor version of the ``npx`` executable found.
+
+``NodeJS_NPX_VERSION_PATCH``
+  The patch version of the ``npx`` executable found.
 
 Hints
 ^^^^^
@@ -181,7 +187,7 @@ if (NodeJS_NPX_EXECUTABLE)
 endif()
 
 # Handle REQUIRED and QUIET arguments
-# this will also set SPHINX_FOUND to true if NodeJS_NODE_EXECUTABLE exists
+# this will also set NodeJS_FOUND to true if NodeJS_NODE_EXECUTABLE exists
 include(FindPackageHandleStandardArgs)
 find_package_handle_standard_args(NodeJS
     REQUIRED_VARS
