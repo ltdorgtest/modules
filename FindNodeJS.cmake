@@ -31,18 +31,16 @@ Imported Targets
 This module provides the following Imported Targets (only created when CMAKE_ROLE is ``PROJECT``):
 
 ``NodeJS::Node``
-  Target encapsulating the ``node`` executable usage requirements.
+  Target encapsulating the ``node`` executable usage requirements, available if the ``Node`` component was found.
 
 ``NodeJS::Npm``
-  Target encapsulating the ``npm`` executable usage requirements.
+  Target encapsulating the ``npm`` executable usage requirements, available if the ``Npm`` component was found.
 
 ``NodeJS::Npx``
-  Target encapsulating the ``npx`` executable usage requirements.
+  Target encapsulating the ``npx`` executable usage requirements, available if the ``Npx`` component was found.
 
 Result Variables
 ^^^^^^^^^^^^^^^^
-
-This module will set the following variables in your project:
 
 ``NodeJS_FOUND``
   Boolean indicating whether the NodeJS with all requested required components was found.
