@@ -7,10 +7,28 @@ FindNodeJS
 
 Find the NodeJS executables.
 
+.. code-block:: cmake
+
+  find_package(NodeJS [<version>] [COMPONENTS <components>...] [...])
+
+Components
+^^^^^^^^^^
+
+Supported components include:
+
+``Node``
+  Find the ``node`` executable. This component is always automatically implied, even if not requested.
+
+``Npm``
+  Find the ``npm`` executable.
+
+``Npx``
+  Find the ``npx`` executable..
+
 Imported Targets
 ^^^^^^^^^^^^^^^^
 
-This module defines the following Imported Targets (only created when CMAKE_ROLE is ``PROJECT``):
+This module provides the following Imported Targets (only created when CMAKE_ROLE is ``PROJECT``):
 
 ``NodeJS::Node``
   Target encapsulating the ``node`` executable usage requirements.
@@ -32,20 +50,20 @@ This module will set the following variables in your project:
 ``NodeJS_NODE_EXECUTABLE``
   The full path to the ``node`` executable.
 
-``NodeJS_NPM_EXECUTABLE``
-  The full path to the ``npm`` executable.
-
-``NodeJS_NPX_EXECUTABLE``
-  The full path to the ``npx`` executable.
-
-``NodeJS_VERSION``
+``NodeJS_NODE_VERSION``
   The version of the ``node`` executable found.
 
-``NodeJS_VERSION_MAJOR``
+``NodeJS_NODE_VERSION_MAJOR``
   The major version of the ``node`` executable found.
 
-``NodeJS_VERSION_MINOR``
+``NodeJS_NODE_VERSION_MINOR``
   The minor version of the ``node`` executable found.
+
+``NodeJS_NODE_VERSION_PATCH``
+  The patch version of the ``node`` executable found.
+
+``NodeJS_NPM_EXECUTABLE``
+  The full path to the ``npm`` executable.
 
 ``NodeJS_NPM_VERSION``
   The version of the ``npm`` executable found.
@@ -58,6 +76,9 @@ This module will set the following variables in your project:
 
 ``NodeJS_NPM_VERSION_PATCH``
   The patch version of the ``npm`` executable found.
+
+``NodeJS_NPX_EXECUTABLE``
+  The full path to the ``npx`` executable.
 
 ``NodeJS_NPX_VERSION``
   The version of the ``npx`` executable found.
@@ -75,7 +96,8 @@ Hints
 ^^^^^
 
 ``NodeJS_ROOT_DIR``, ``ENV{NodeJS_ROOT_DIR}``
-  Define the root directory of a NodeJS installation.
+  The root directory of a NodeJS installation where the executable is located.
+  This can be used to specify a custom NodeJS installation path.
 
 #]================================================================================]
 
@@ -84,12 +106,11 @@ set(_NodeJS_KNOWN_COMPONENTS
     Npm
     Npx)
 
+# Make sure 'Node' is one of the components to find.
 if (NOT NodeJS_FIND_COMPONENTS)
-    set(NodeJS_FIND_COMPONENTS ${_NodeJS_KNOWN_COMPONENTS})
-    foreach(_COMP ${NodeJS_FIND_COMPONENTS})
-        set(NodeJS_FIND_REQUIRED_${_COMP} TRUE)
-    endforeach()
-    unset(_COMP)
+    set(NodeJS_FIND_COMPONENTS Node)
+elseif (NOT Node IN_LIST NodeJS_FIND_COMPONENTS)
+    list(INSERT NodeJS_FIND_COMPONENTS 0 Node)
 endif()
 
 set(_NodeJS_SEARCH_HINTS
@@ -100,91 +121,52 @@ set(_NodeJS_SEARCH_PATHS "")
 
 set(_NodeJS_FAILURE_REASON "")
 
-foreach(_COMP ${_NodeJS_KNOWN_COMPONENTS})
+foreach(_COMP ${NodeJS_FIND_COMPONENTS})
+    if (NOT ${_COMP} IN_LIST _NodeJS_KNOWN_COMPONENTS)
+        message(WARNING "${_COMP} is not a valid NodeJS component.")
+        set(NodeJS_${_COMP}_FOUND FALSE)
+        continue()
+    endif()
+
     string(TOLOWER ${_COMP} _COMP_LOWER)
     string(TOUPPER ${_COMP} _COMP_UPPER)
     set(_TOOL "${_COMP_LOWER}")
     find_program(NodeJS_${_COMP_UPPER}_EXECUTABLE
         NAMES ${_TOOL}
+        PATH_SUFFIXES bin
         HINTS ${_NodeJS_SEARCH_HINTS}
         PATHS ${_NodeJS_SEARCH_PATHS}
-        DOC "The full path to the '${_TOOL}' executable.")
+        DOC "The full path to the ``${_TOOL}`` executable.")
     if (NodeJS_${_COMP_UPPER}_EXECUTABLE)
         set(NodeJS_${_COMP}_FOUND TRUE)
     else()
         set(NodeJS_${_COMP}_FOUND FALSE)
     endif()
+
+    if (NodeJS_${_COMP_UPPER}_EXECUTABLE)
+        execute_process(
+            COMMAND "${NodeJS_${_COMP_UPPER}_EXECUTABLE}" --version
+            RESULT_VARIABLE _${_COMP_UPPER}_VERSION_RESULT
+            OUTPUT_VARIABLE _${_COMP_UPPER}_VERSION_OUTPUT OUTPUT_STRIP_TRAILING_WHITESPACE
+            ERROR_VARIABLE  _${_COMP_UPPER}_VERSION_ERROR  ERROR_STRIP_TRAILING_WHITESPACE)
+
+        if (_${_COMP_UPPER}_VERSION_RESULT EQUAL 0)
+            string(REGEX MATCH "([0-9]+)\\.([0-9]+)\\.([0-9]+)" NodeJS_${_COMP_UPPER}_VERSION ${_${_COMP_UPPER}_VERSION_OUTPUT})
+            set(NodeJS_${_COMP_UPPER}_VERSION_MAJOR "${CMAKE_MATCH_1}")
+            set(NodeJS_${_COMP_UPPER}_VERSION_MINOR "${CMAKE_MATCH_2}")
+            set(NodeJS_${_COMP_UPPER}_VERSION_PATCH "${CMAKE_MATCH_3}")
+        else()
+            string(APPEND _NodeJS_FAILURE_REASON
+            "The command\n"
+            "    \"${NodeJS_${_COMP_UPPER}_EXECUTABLE}\" --version\n"
+            "failed with fatal errors.\n"
+            "    result:\n${_${_COMP_UPPER}_VERSION_RESULT}\n"
+            "    stdout:\n${_${_COMP_UPPER}_VERSION_OUTPUT}\n"
+            "    stderr:\n${_${_COMP_UPPER}_VERSION_ERROR}")
+        endif()
+    endif()
 endforeach()
 unset(_COMP)
-
-if (NodeJS_NODE_EXECUTABLE)
-    execute_process(
-        COMMAND ${NodeJS_NODE_EXECUTABLE} --version
-        RESULT_VARIABLE _NODE_VERSION_RESULT
-        OUTPUT_VARIABLE _NODE_VERSION_OUTPUT  OUTPUT_STRIP_TRAILING_WHITESPACE
-        ERROR_VARIABLE  _NODE_VERSION_ERROR   ERROR_STRIP_TRAILING_WHITESPACE)
-
-    if (_NODE_VERSION_RESULT EQUAL 0)
-        string(REGEX MATCH "([0-9]+)\\.([0-9]+)\\.([0-9]+)" NodeJS_VERSION ${_NODE_VERSION_OUTPUT})
-        set(NodeJS_VERSION_MAJOR "${CMAKE_MATCH_1}")
-        set(NodeJS_VERSION_MINOR "${CMAKE_MATCH_2}")
-        set(NodeJS_VERSION_PATCH "${CMAKE_MATCH_3}")
-    else()
-        string(APPEND _NodeJS_FAILURE_REASON
-        "The command\n"
-        "    \"${NodeJS_NODE_EXECUTABLE}\" --version\n"
-        "failed with fatal errors.\n"
-        "    result:\n${_NODE_VERSION_RESULT}\n"
-        "    stdout:\n${_NODE_VERSION_OUTPUT}\n"
-        "    stderr:\n${_NODE_VERSION_ERROR}")
-    endif()
-endif()
-
-if (NodeJS_NPM_EXECUTABLE)
-    execute_process(
-        COMMAND ${NodeJS_NPM_EXECUTABLE} --version
-        RESULT_VARIABLE _NPM_VERSION_RESULT
-        OUTPUT_VARIABLE _NPM_VERSION_OUTPUT OUTPUT_STRIP_TRAILING_WHITESPACE
-        ERROR_VARIABLE  _NPM_VERSION_ERROR  ERROR_STRIP_TRAILING_WHITESPACE)
-
-    if (_NPM_VERSION_RESULT EQUAL 0)
-        string(REGEX MATCH "([0-9]+)\\.([0-9]+)\\.([0-9]+)" NodeJS_NPM_VERSION ${_NPM_VERSION_OUTPUT})
-        set(NodeJS_NPM_VERSION_MAJOR "${CMAKE_MATCH_1}")
-        set(NodeJS_NPM_VERSION_MINOR "${CMAKE_MATCH_2}")
-        set(NodeJS_NPM_VERSION_PATCH "${CMAKE_MATCH_3}")
-    else()
-        string(APPEND _NodeJS_FAILURE_REASON
-        "The command\n"
-        "    \"${NodeJS_NPM_EXECUTABLE}\" --version\n"
-        "failed with fatal errors.\n"
-        "    result:\n${_NPM_VERSION_RESULT}\n"
-        "    stdout:\n${_NPM_VERSION_OUTPUT}\n"
-        "    stderr:\n${_NPM_VERSION_ERROR}")
-    endif()
-endif()
-
-if (NodeJS_NPX_EXECUTABLE)
-    execute_process(
-        COMMAND ${NodeJS_NPX_EXECUTABLE} --version
-        RESULT_VARIABLE _NPX_VERSION_RESULT
-        OUTPUT_VARIABLE _NPX_VERSION_OUTPUT OUTPUT_STRIP_TRAILING_WHITESPACE
-        ERROR_VARIABLE  _NPX_VERSION_ERROR  ERROR_STRIP_TRAILING_WHITESPACE)
-
-    if (_NPX_VERSION_RESULT EQUAL 0)
-        string(REGEX MATCH "([0-9]+)\\.([0-9]+)\\.([0-9]+)" NodeJS_NPX_VERSION ${_NPX_VERSION_OUTPUT})
-        set(NodeJS_NPX_VERSION_MAJOR "${CMAKE_MATCH_1}")
-        set(NodeJS_NPX_VERSION_MINOR "${CMAKE_MATCH_2}")
-        set(NodeJS_NPX_VERSION_PATCH "${CMAKE_MATCH_3}")
-    else()
-        string(APPEND _NodeJS_FAILURE_REASON
-        "The command\n"
-        "    \"${NodeJS_NPX_EXECUTABLE}\" --version\n"
-        "failed with fatal errors.\n"
-        "    result:\n${_NPX_VERSION_RESULT}\n"
-        "    stdout:\n${_NPX_VERSION_OUTPUT}\n"
-        "    stderr:\n${_NPX_VERSION_ERROR}")
-    endif()
-endif()
 
 # Handle REQUIRED and QUIET arguments
 # this will also set NodeJS_FOUND to true if NodeJS_NODE_EXECUTABLE exists
@@ -192,9 +174,8 @@ include(FindPackageHandleStandardArgs)
 find_package_handle_standard_args(NodeJS
     REQUIRED_VARS
         NodeJS_NODE_EXECUTABLE
-        NodeJS_VERSION
     VERSION_VAR
-        NodeJS_VERSION
+        NodeJS_NODE_VERSION
     FOUND_VAR
         NodeJS_FOUND
     REASON_FAILURE_MESSAGE
@@ -206,7 +187,7 @@ if (NodeJS_FOUND)
     get_property(_NodeJS_CMAKE_ROLE GLOBAL PROPERTY CMAKE_ROLE)
     if (_NodeJS_CMAKE_ROLE STREQUAL "PROJECT")
         #
-        # add_executable is not scriptable
+        # add_executable is not scriptable.
         #
         foreach(_COMP ${NodeJS_FIND_COMPONENTS})
             string(TOUPPER ${_COMP} _COMP_UPPER)
